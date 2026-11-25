@@ -1,0 +1,158 @@
+{
+  "chapter": {
+    "id": 6,
+    "en": "Test Tools",
+    "vi": "Công cụ kiểm thử",
+    "intro": "Chương ngắn nhất của syllabus (20 phút), nói về các loại công cụ hỗ trợ kiểm thử và lợi ích/rủi ro của tự động hóa kiểm thử (test automation). Đề thi thường có 1–2 câu: nhận diện loại công cụ theo mô tả, hoặc phân biệt đâu là lợi ích, đâu là rủi ro của automation — học thuộc hai danh sách là ăn điểm chắc."
+  },
+  "units": [
+    {
+      "lo": "FL-6.1.1",
+      "k": "K2",
+      "loEn": "Explain how different types of test tools support testing",
+      "loVi": "Giải thích các loại công cụ kiểm thử khác nhau hỗ trợ việc kiểm thử như thế nào",
+      "sec": "6.1",
+      "title": "Tool Support for Testing",
+      "titleVi": "Công cụ hỗ trợ kiểm thử",
+      "page": 59,
+      "summary": [
+        "Công cụ kiểm thử (test tools) hỗ trợ và tạo thuận lợi cho nhiều hoạt động kiểm thử. Syllabus liệt kê các nhóm sau (danh sách ví dụ, không giới hạn):",
+        "Công cụ quản lý kiểm thử (test management tools): tăng hiệu quả quy trình kiểm thử bằng cách hỗ trợ quản lý SDLC, yêu cầu (requirements), test, lỗi (defects), cấu hình (configuration).",
+        "Công cụ kiểm thử tĩnh (static testing tools): hỗ trợ tester thực hiện review và phân tích tĩnh (static analysis).",
+        "Công cụ thiết kế và triển khai kiểm thử (test design and test implementation tools): hỗ trợ sinh test case, dữ liệu kiểm thử (test data) và thủ tục kiểm thử (test procedures).",
+        "Công cụ thực thi kiểm thử và đo độ bao phủ (test execution and test coverage tools): hỗ trợ thực thi test tự động và đo độ bao phủ (coverage).",
+        "Công cụ kiểm thử phi chức năng (non-functional testing tools): cho phép thực hiện kiểm thử phi chức năng khó hoặc không thể làm thủ công (vd tạo tải lớn cho performance test).",
+        "Công cụ DevOps (DevOps tools): hỗ trợ pipeline phân phối DevOps, theo dõi luồng công việc (workflow tracking), quy trình build tự động, CI/CD. Công cụ cộng tác (collaboration tools): hỗ trợ giao tiếp.",
+        "Công cụ hỗ trợ khả năng mở rộng và chuẩn hóa triển khai (tools supporting scalability and deployment standardization), vd máy ảo (virtual machines), công cụ container hóa (containerization tools); và bất kỳ công cụ nào khác hỗ trợ kiểm thử — vd bảng tính (spreadsheet) cũng là test tool trong bối cảnh kiểm thử."
+      ],
+      "en": [
+        "Test tools support and facilitate many test activities.",
+        "Test management tools – increase the test process efficiency by facilitating management of the SDLC, requirements, tests, defects, configuration.",
+        "Non-functional testing tools – allow the tester to perform non-functional testing that is difficult or impossible to perform manually.",
+        "Any other tool that assists in testing (e.g., a spreadsheet is a test tool in the context of testing)."
+      ],
+      "tips": [
+        "Đề hay cho mô tả chức năng rồi hỏi loại công cụ: 'sinh test data/test case' → test design and implementation tools; 'đo coverage, chạy test tự động' → test execution and coverage tools; 'review, phân tích tĩnh' → static testing tools; 'quản lý requirements, defects, configuration' → test management tools; 'máy ảo, container' → scalability and deployment standardization; 'CI/CD, build tự động' → DevOps tools.",
+        "Bẫy: nghĩ rằng chỉ phần mềm chuyên dụng mới là test tool. Syllabus nói rõ cả spreadsheet cũng là test tool khi dùng cho kiểm thử."
+      ],
+      "terms": [
+        "test management tools",
+        "static testing tools",
+        "test design and test implementation tools",
+        "test execution and test coverage tools",
+        "non-functional testing tools",
+        "devops tools",
+        "collaboration tools",
+        "tools supporting scalability and deployment standardization",
+        "containerization"
+      ]
+    },
+    {
+      "lo": "FL-6.2.1",
+      "k": "K1",
+      "loEn": "Recall the benefits and risks of test automation",
+      "loVi": "Nhắc lại các lợi ích và rủi ro của tự động hóa kiểm thử",
+      "sec": "6.2",
+      "title": "Benefits and Risks of Test Automation",
+      "titleVi": "Lợi ích và rủi ro của tự động hóa kiểm thử",
+      "page": 59,
+      "summary": [
+        "Chỉ mua công cụ thì không đảm bảo thành công: mỗi công cụ mới cần công sức để đạt lợi ích thực sự và lâu dài (vd giới thiệu công cụ, bảo trì, đào tạo); đồng thời có rủi ro cần phân tích và giảm thiểu.",
+        "Lợi ích (1–3): (1) Tiết kiệm thời gian nhờ giảm việc thủ công lặp lại (chạy regression test, nhập lại cùng test data, so sánh kết quả mong đợi với thực tế, kiểm tra theo coding standards); (2) Ngăn lỗi đơn giản của con người nhờ tính nhất quán và lặp lại được (consistency, repeatability) — test được dẫn xuất nhất quán từ requirements, test data tạo có hệ thống, tool chạy test cùng thứ tự, cùng tần suất; (3) Đánh giá khách quan hơn (vd coverage) và cung cấp các phép đo quá phức tạp để con người tự xác định.",
+        "Lợi ích (4–6): (4) Dễ truy cập thông tin kiểm thử để hỗ trợ quản lý và báo cáo (thống kê, biểu đồ, dữ liệu tổng hợp về tiến độ, tỉ lệ fail, thời gian thực thi); (5) Giảm thời gian thực thi test → phát hiện lỗi sớm hơn, phản hồi nhanh hơn, ra thị trường nhanh hơn (time to market); (6) Tester có nhiều thời gian hơn để thiết kế test mới, sâu hơn, hiệu quả hơn.",
+        "Rủi ro (1–4): (1) Kỳ vọng không thực tế về lợi ích của công cụ (kể cả chức năng và độ dễ dùng); (2) Ước lượng sai thời gian, chi phí, công sức để giới thiệu công cụ, bảo trì test script và thay đổi quy trình kiểm thử thủ công hiện có; (3) Dùng công cụ khi kiểm thử thủ công phù hợp hơn; (4) Phụ thuộc quá nhiều vào công cụ, vd bỏ qua nhu cầu tư duy phản biện (critical thinking) của con người.",
+        "Rủi ro (5–6): (5) Phụ thuộc vào nhà cung cấp công cụ (tool vendor) — có thể phá sản, ngừng công cụ, bán cho vendor khác hoặc hỗ trợ kém (trả lời câu hỏi, nâng cấp, sửa lỗi); (6) Dùng phần mềm mã nguồn mở (open-source) có thể bị bỏ rơi (không còn cập nhật), hoặc các thành phần bên trong cần cập nhật khá thường xuyên.",
+        "Rủi ro (7–8): (7) Công cụ automation không tương thích với nền tảng phát triển (development platform); (8) Chọn công cụ không phù hợp, không tuân thủ yêu cầu pháp quy (regulatory requirements) và/hoặc tiêu chuẩn an toàn (safety standards)."
+      ],
+      "en": [
+        "Simply acquiring a tool does not guarantee success.",
+        "Each new tool will require effort to achieve real and lasting benefits (e.g., for tool introduction, maintenance and training).",
+        "Prevention of simple human errors through greater consistency and repeatability.",
+        "Relying on a tool too much, e.g., ignoring the need of human critical thinking."
+      ],
+      "tips": [
+        "Câu hỏi K1 dạng 'Which of the following is a BENEFIT/RISK of test automation?': lợi ích xoay quanh tiết kiệm thời gian, nhất quán, khách quan, dễ báo cáo, phản hồi nhanh, tester rảnh để thiết kế test tốt hơn; rủi ro xoay quanh kỳ vọng ảo, ước lượng sai, lạm dụng tool, phụ thuộc vendor/open-source, không tương thích, không tuân thủ quy định.",
+        "Bẫy: các phương án như 'automation thay thế hoàn toàn tester', 'không cần bảo trì script', 'tìm được mọi lỗi' đều SAI. 'Prevention of simple human errors' là LỢI ÍCH, còn 'relying on a tool too much' là RỦI RO."
+      ],
+      "terms": [
+        "test automation",
+        "tool vendor",
+        "open-source software"
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "en": "test automation",
+      "vi": "tự động hóa kiểm thử",
+      "def": "Việc dùng phần mềm (công cụ) để thực hiện hoặc hỗ trợ các hoạt động kiểm thử, vd thực thi test, so sánh kết quả, sinh dữ liệu. Mang lại lợi ích (tiết kiệm thời gian, nhất quán) nhưng cũng có rủi ro cần phân tích và giảm thiểu.",
+      "kw": true
+    },
+    {
+      "en": "test management tools",
+      "vi": "công cụ quản lý kiểm thử",
+      "def": "Công cụ tăng hiệu quả quy trình kiểm thử bằng cách hỗ trợ quản lý SDLC, requirements, test, defect và cấu hình.",
+      "kw": false
+    },
+    {
+      "en": "static testing tools",
+      "vi": "công cụ kiểm thử tĩnh",
+      "def": "Công cụ hỗ trợ tester thực hiện review và phân tích tĩnh (static analysis) mà không cần chạy phần mềm.",
+      "kw": false
+    },
+    {
+      "en": "test design and test implementation tools",
+      "vi": "công cụ thiết kế và triển khai kiểm thử",
+      "def": "Công cụ hỗ trợ sinh test case, test data và test procedure.",
+      "kw": false
+    },
+    {
+      "en": "test execution and test coverage tools",
+      "vi": "công cụ thực thi kiểm thử và đo độ bao phủ",
+      "def": "Công cụ hỗ trợ thực thi test tự động và đo độ bao phủ (coverage).",
+      "kw": false
+    },
+    {
+      "en": "non-functional testing tools",
+      "vi": "công cụ kiểm thử phi chức năng",
+      "def": "Công cụ cho phép thực hiện kiểm thử phi chức năng (vd hiệu năng, tải) vốn khó hoặc không thể làm thủ công.",
+      "kw": false
+    },
+    {
+      "en": "devops tools",
+      "vi": "công cụ DevOps",
+      "def": "Công cụ hỗ trợ pipeline phân phối DevOps, theo dõi luồng công việc, quy trình build tự động và CI/CD.",
+      "kw": false
+    },
+    {
+      "en": "collaboration tools",
+      "vi": "công cụ cộng tác",
+      "def": "Công cụ tạo thuận lợi cho giao tiếp giữa các thành viên/bên liên quan trong kiểm thử.",
+      "kw": false
+    },
+    {
+      "en": "tools supporting scalability and deployment standardization",
+      "vi": "công cụ hỗ trợ khả năng mở rộng và chuẩn hóa triển khai",
+      "def": "Công cụ giúp mở rộng và chuẩn hóa môi trường triển khai/kiểm thử, vd máy ảo (virtual machines) và công cụ container hóa.",
+      "kw": false
+    },
+    {
+      "en": "containerization",
+      "vi": "container hóa",
+      "def": "Kỹ thuật đóng gói ứng dụng cùng môi trường chạy vào container để triển khai nhất quán; công cụ container hóa thuộc nhóm hỗ trợ khả năng mở rộng và chuẩn hóa triển khai.",
+      "kw": false
+    },
+    {
+      "en": "tool vendor",
+      "vi": "nhà cung cấp công cụ",
+      "def": "Tổ chức cung cấp công cụ thương mại; phụ thuộc vào vendor là rủi ro vì vendor có thể phá sản, ngừng công cụ, bán công cụ hoặc hỗ trợ kém.",
+      "kw": false
+    },
+    {
+      "en": "open-source software",
+      "vi": "phần mềm mã nguồn mở",
+      "def": "Phần mềm có mã nguồn công khai; rủi ro khi dùng cho automation là dự án có thể bị bỏ rơi (không còn cập nhật) hoặc thành phần bên trong cần cập nhật thường xuyên.",
+      "kw": false
+    }
+  ]
+}

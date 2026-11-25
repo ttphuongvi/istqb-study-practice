@@ -1,0 +1,773 @@
+{
+ "chapter": {
+  "id": 5,
+  "en": "Managing the Test Activities",
+  "vi": "Quản lý các hoạt động kiểm thử",
+  "intro": "Chương này bàn về lập kế hoạch kiểm thử (test plan, entry/exit criteria, ước lượng, ưu tiên test case, test pyramid, testing quadrants), quản lý rủi ro, giám sát – điều khiển – hoàn tất kiểm thử, quản lý cấu hình và quản lý lỗi. Đây là chương có nhiều câu K3 tính toán (ước lượng ba điểm, tỷ lệ, thứ tự chạy test có phụ thuộc) và câu lập defect report, nên rất đáng đầu tư để lấy điểm."
+ },
+ "units": [
+  {
+   "lo": "FL-5.1.1",
+   "k": "K2",
+   "loEn": "Exemplify the purpose and content of a test plan",
+   "loVi": "Nêu ví dụ minh họa mục đích và nội dung của một kế hoạch kiểm thử",
+   "sec": "5.1.1",
+   "title": "Purpose and Content of a Test Plan",
+   "titleVi": "Mục đích và nội dung của kế hoạch kiểm thử",
+   "page": 48,
+   "summary": [
+    "Kế hoạch kiểm thử (test plan) mô tả mục tiêu kiểm thử (test objectives), nguồn lực và quy trình cho một dự án kiểm thử.",
+    "Mục đích của test plan: (1) ghi lại phương tiện và lịch trình để đạt mục tiêu kiểm thử; (2) giúp đảm bảo các hoạt động kiểm thử đáp ứng tiêu chí đã đề ra; (3) là phương tiện giao tiếp với thành viên nhóm và các bên liên quan (stakeholders); (4) chứng minh việc kiểm thử tuân theo chính sách kiểm thử (test policy) và chiến lược kiểm thử (test strategy) hiện có — hoặc giải thích lý do sai lệch.",
+    "Việc lập kế hoạch (test planning) buộc tester suy nghĩ trước về các thách thức: rủi ro, lịch trình, con người, công cụ, chi phí, công sức (effort)… Bản thân quá trình viết plan đã có giá trị.",
+    "Nội dung điển hình của test plan (7 mục): Bối cảnh kiểm thử (context: phạm vi – test scope, mục tiêu, cơ sở kiểm thử – test basis); Giả định và ràng buộc (assumptions and constraints); Các bên liên quan (vai trò, trách nhiệm, nhu cầu tuyển dụng/đào tạo); Giao tiếp (hình thức, tần suất, mẫu tài liệu); Sổ đăng ký rủi ro (risk register: product risks, project risks); Cách tiếp cận kiểm thử (test approach); Ngân sách và lịch trình (budget and schedule).",
+    "Test approach bao gồm: test levels, test types, test techniques, sản phẩm bàn giao (test deliverables), entry/exit criteria, mức độc lập kiểm thử, metrics cần thu thập, yêu cầu test data, yêu cầu test environment, và các sai lệch so với test policy/test strategy.",
+    "Chi tiết hơn về test plan có trong chuẩn ISO/IEC/IEEE 29119-3."
+   ],
+   "en": [
+    "A test plan describes the test objectives, resources and processes for a test project.",
+    "Serves as a means of communication with team members and other stakeholders.",
+    "Demonstrates that testing will adhere to the existing test policy and test strategy (or explains why the testing will deviate from them).",
+    "Test planning guides the testers' thinking and forces the testers to confront the future challenges related to risks, schedules, people, tools, costs, effort, etc."
+   ],
+   "tips": [
+    "Đề hay hỏi 'mục nào KHÔNG thuộc nội dung test plan': các thứ như kết quả thực thi chi tiết, danh sách defect đã tìm thấy, lessons learned thuộc test report chứ không phải test plan.",
+    "Entry/exit criteria, test techniques, test data/environment requirements nằm TRONG 'test approach' — một phần của test plan."
+   ],
+   "terms": [
+    "test plan",
+    "test planning",
+    "test approach",
+    "test strategy",
+    "entry criteria",
+    "exit criteria"
+   ]
+  },
+  {
+   "lo": "FL-5.1.2",
+   "k": "K1",
+   "loEn": "Recognize how a tester adds value to iteration and release planning",
+   "loVi": "Nhận biết cách tester mang lại giá trị cho việc lập kế hoạch iteration và release",
+   "sec": "5.1.2",
+   "title": "Tester's Contribution to Iteration and Release Planning",
+   "titleVi": "Đóng góp của tester vào lập kế hoạch iteration và release",
+   "page": 48,
+   "summary": [
+    "Trong SDLC lặp (iterative), thường có 2 loại lập kế hoạch: lập kế hoạch phát hành (release planning) và lập kế hoạch vòng lặp (iteration planning).",
+    "Release planning nhìn tới thời điểm phát hành sản phẩm, định nghĩa/định nghĩa lại product backlog, có thể chia user story lớn thành các story nhỏ hơn; là cơ sở cho test approach và test plan xuyên suốt các iteration.",
+    "Tester trong release planning: tham gia viết user story kiểm thử được (testable) và tiêu chí chấp nhận (acceptance criteria); tham gia phân tích rủi ro dự án và rủi ro chất lượng; ước lượng công sức kiểm thử gắn với user story; xác định test approach; lập kế hoạch kiểm thử cho release.",
+    "Iteration planning nhìn tới cuối một iteration và liên quan đến iteration backlog.",
+    "Tester trong iteration planning: tham gia phân tích rủi ro chi tiết của user story; xác định khả năng kiểm thử (testability) của user story; chia user story thành các task (đặc biệt là task kiểm thử); ước lượng effort cho tất cả task kiểm thử; xác định và tinh chỉnh các khía cạnh chức năng và phi chức năng của đối tượng kiểm thử."
+   ],
+   "en": [
+    "Release planning looks ahead to the release of a product, defines and re-defines the product backlog, and may involve refining larger user stories into a set of smaller user stories.",
+    "Iteration planning looks ahead to the end of a single iteration and is concerned with the iteration backlog.",
+    "Testers involved in iteration planning participate in the detailed risk analysis of user stories, determine the testability of user stories, break down user stories into tasks."
+   ],
+   "tips": [
+    "Phân biệt: release planning → product backlog, viết testable user stories + acceptance criteria, xác định test approach cho cả release; iteration planning → iteration backlog, phân tích rủi ro CHI TIẾT, chia story thành task, ước lượng effort cho từng task.",
+    "'Determine the testability of user stories' và 'break down user stories into tasks' là dấu hiệu của iteration planning."
+   ],
+   "terms": [
+    "test planning",
+    "test approach",
+    "test effort"
+   ]
+  },
+  {
+   "lo": "FL-5.1.3",
+   "k": "K2",
+   "loEn": "Compare and contrast entry criteria and exit criteria",
+   "loVi": "So sánh và phân biệt tiêu chí đầu vào và tiêu chí đầu ra",
+   "sec": "5.1.3",
+   "title": "Entry Criteria and Exit Criteria",
+   "titleVi": "Tiêu chí đầu vào và tiêu chí đầu ra",
+   "page": 49,
+   "summary": [
+    "Tiêu chí đầu vào (entry criteria) định nghĩa điều kiện tiên quyết để bắt đầu một hoạt động; nếu không đáp ứng, hoạt động dễ trở nên khó khăn, tốn thời gian, tốn kém và rủi ro hơn.",
+    "Tiêu chí đầu ra (exit criteria) định nghĩa những gì phải đạt được để tuyên bố một hoạt động đã hoàn thành. Cả hai nên được định nghĩa cho từng test level và khác nhau tùy test objectives.",
+    "Entry criteria điển hình: sẵn có nguồn lực (người, công cụ, môi trường, test data, ngân sách, thời gian); sẵn có testware (test basis, yêu cầu kiểm thử được, user story, test case); mức chất lượng ban đầu của test object (vd tất cả smoke test đã pass).",
+    "Exit criteria điển hình: thước đo độ kỹ lưỡng (thoroughness) — mức coverage đạt được, số defect chưa giải quyết, mật độ defect (defect density), số test case fail; và tiêu chí nhị phân 'có/không' — đã chạy các test theo kế hoạch, đã thực hiện static testing, mọi defect tìm được đã được báo cáo, mọi regression test đã được tự động hóa.",
+    "Hết thời gian hoặc hết ngân sách cũng có thể coi là exit criteria hợp lệ, nếu các bên liên quan đã xem xét và chấp nhận rủi ro go-live mà không kiểm thử thêm.",
+    "Trong Agile: exit criteria thường gọi là Definition of Done (DoD); entry criteria mà user story phải thỏa để bắt đầu phát triển/kiểm thử gọi là Definition of Ready (DoR)."
+   ],
+   "en": [
+    "Entry criteria define the preconditions for undertaking a given activity.",
+    "Exit criteria define what must be achieved to declare an activity completed.",
+    "Running out of time or budget can also be viewed as valid exit criteria.",
+    "In Agile software development, exit criteria are often called Definition of Done … Entry criteria that a user story must fulfill … are called Definition of Ready."
+   ],
+   "tips": [
+    "Bẫy: 'all smoke tests have passed' là ENTRY criterion (mức chất lượng ban đầu của test object), không phải exit criterion. 'Sẵn có test environment/test data' cũng là entry.",
+    "DoD = exit, DoR = entry. Hết thời gian/ngân sách vẫn có thể là exit criteria hợp lệ — chỉ khi stakeholders chấp nhận rủi ro."
+   ],
+   "terms": [
+    "entry criteria",
+    "exit criteria",
+    "definition of done",
+    "definition of ready"
+   ]
+  },
+  {
+   "lo": "FL-5.1.4",
+   "k": "K3",
+   "loEn": "Use estimation techniques to calculate the required test effort",
+   "loVi": "Sử dụng các kỹ thuật ước lượng để tính công sức kiểm thử cần thiết",
+   "sec": "5.1.4",
+   "title": "Estimation Techniques",
+   "titleVi": "Các kỹ thuật ước lượng",
+   "page": 49,
+   "summary": [
+    "Ước lượng công sức kiểm thử (test effort estimation) là dự đoán lượng công việc kiểm thử cần để đạt test objectives. Phải nói rõ với stakeholders rằng ước lượng dựa trên các giả định và luôn có sai số. Task nhỏ ước lượng chính xác hơn task lớn → chia task lớn thành các task nhỏ rồi ước lượng.",
+    "4 kỹ thuật: 2 dựa trên số liệu (metrics-based) — tỷ lệ (ratios) và ngoại suy (extrapolation); 2 dựa trên chuyên gia (expert-based) — Wideband Delphi (biến thể Planning Poker) và ước lượng ba điểm (three-point estimation).",
+    "(1) Ước lượng dựa trên tỷ lệ (estimation based on ratios): lấy số liệu từ các dự án trước trong chính tổ chức để suy ra tỷ lệ 'chuẩn'. Ví dụ: tỷ lệ dev:test dự án trước = 3:2, dev effort dự án mới = 600 person-days → test effort = 600 × 2/3 = 400 person-days. Số liệu lịch sử của chính tổ chức là nguồn tốt nhất.",
+    "(2) Ngoại suy (extrapolation): đo đạc càng sớm càng tốt trong CHÍNH dự án hiện tại, đủ dữ liệu thì ngoại suy (thường bằng mô hình toán) cho phần việc còn lại. Rất hợp với SDLC lặp. Ví dụ: effort iteration tới = trung bình effort 3 iteration gần nhất (vd 30, 34, 26 → 30).",
+    "(3) Wideband Delphi: kỹ thuật lặp, dựa trên kinh nghiệm chuyên gia. Mỗi chuyên gia ước lượng ĐỘC LẬP (in isolation) → gom kết quả → nếu có ước lượng lệch ra ngoài biên đã thống nhất thì các chuyên gia thảo luận → ước lượng lại (vẫn độc lập) → lặp đến khi đạt đồng thuận. Planning Poker là biến thể của Wideband Delphi dùng phổ biến trong Agile, ước lượng bằng các lá bài có số biểu thị kích cỡ effort.",
+    "(4) Ước lượng ba điểm (three-point estimation): chuyên gia đưa 3 con số — lạc quan nhất a (most optimistic), khả dĩ nhất m (most likely), bi quan nhất b (most pessimistic). Ước lượng cuối là trung bình có trọng số: E = (a + 4m + b) / 6. Ưu điểm: tính được sai số đo — độ lệch chuẩn SD = (b − a) / 6.",
+    "Ví dụ syllabus: a=6, m=9, b=18 person-hours → E = (6 + 36 + 18)/6 = 10; SD = (18 − 6)/6 = 2 → kết quả 10 ± 2 person-hours (tức 8 đến 12). Lưu ý m nhân 4, tổng chia 6."
+   ],
+   "en": [
+    "Estimation for small tasks is usually more accurate than for the large ones.",
+    "The ratios of an organization's own projects (e.g., taken from historical data) are generally the best source to use in the estimation process.",
+    "Planning Poker is a variant of Wideband Delphi, commonly used in Agile software development.",
+    "The estimate is calculated as E = (a + 4*m + b) / 6 … SD = (b – a) / 6."
+   ],
+   "tips": [
+    "Ratios = dữ liệu dự án CŨ; extrapolation = dữ liệu đo sớm trong dự án HIỆN TẠI. Wideband Delphi/Planning Poker = ước lượng độc lập rồi thảo luận, lặp đến đồng thuận. Ba điểm = có công thức.",
+    "Tính ba điểm: đừng quên nhân 4 cho m và chia 6; SD chỉ dùng a và b. Bài tỷ lệ: chú ý chiều tỷ lệ (dev:test = 3:2 → test = dev × 2/3), đừng nhân ngược."
+   ],
+   "terms": [
+    "test effort",
+    "test planning",
+    "wideband delphi",
+    "planning poker",
+    "three-point estimation"
+   ]
+  },
+  {
+   "lo": "FL-5.1.5",
+   "k": "K3",
+   "loEn": "Apply test case prioritization",
+   "loVi": "Áp dụng việc ưu tiên hóa test case",
+   "sec": "5.1.5",
+   "title": "Test Case Prioritization",
+   "titleVi": "Ưu tiên hóa test case",
+   "page": 50,
+   "summary": [
+    "Sau khi test case/test procedure được đặc tả và gom thành test suite, các suite được sắp vào lịch thực thi kiểm thử (test execution schedule) xác định thứ tự chạy.",
+    "Chiến lược 1 — ưu tiên theo rủi ro (risk-based prioritization): thứ tự dựa trên kết quả phân tích rủi ro; test case phủ rủi ro quan trọng nhất chạy trước.",
+    "Chiến lược 2 — ưu tiên theo độ bao phủ (coverage-based prioritization): test case đạt coverage cao nhất (vd statement coverage) chạy trước. Biến thể 'ưu tiên theo coverage bổ sung' (additional coverage prioritization): chạy test có coverage cao nhất trước, mỗi test tiếp theo là test đạt coverage BỔ SUNG (phần chưa phủ) cao nhất.",
+    "Chiến lược 3 — ưu tiên theo yêu cầu (requirements-based prioritization): thứ tự theo độ ưu tiên của yêu cầu truy vết tới test case; độ ưu tiên yêu cầu do stakeholders định nghĩa.",
+    "Phụ thuộc (dependencies): nếu test case ưu tiên CAO phụ thuộc vào test case ưu tiên THẤP hơn thì test case ưu tiên thấp phải chạy TRƯỚC. Cách làm bài: lần lượt chọn test ưu tiên cao nhất còn lại; nếu nó phụ thuộc test chưa chạy thì chạy test tiền đề đó trước.",
+    "Ví dụ (1 = ưu tiên cao nhất): TC1 (4), TC2 (1, phụ thuộc TC3), TC3 (3), TC4 (2, phụ thuộc TC1). TC2 cao nhất nhưng cần TC3 → chạy TC3, TC2; tiếp theo TC4 cần TC1 → chạy TC1, TC4. Thứ tự: TC3 → TC2 → TC1 → TC4.",
+    "Thứ tự chạy còn phải tính tới sự sẵn có của nguồn lực: công cụ, môi trường kiểm thử hay con người chỉ sẵn có trong một khung thời gian nhất định."
+   ],
+   "en": [
+    "Risk-based prioritization, where the order of test execution is based on the results of risk analysis.",
+    "In another variant, called additional coverage prioritization, the test case achieving the highest coverage is executed first; each subsequent test case is the one that achieves the highest additional coverage.",
+    "If a test case with a higher priority is dependent on a test case with a lower priority, the lower priority test case must be executed first."
+   ],
+   "tips": [
+    "Câu K3 hay cho bảng test case + priority + dependency và hỏi 'thứ tự nào đúng' hoặc 'test case nào chạy thứ 3'. Luôn ưu tiên thỏa phụ thuộc trước, rồi mới xét priority.",
+    "Additional coverage: sau test đầu tiên, KHÔNG chọn theo coverage tổng mà theo phần coverage MỚI chưa được phủ — tính lại sau mỗi lần chọn."
+   ],
+   "terms": [
+    "risk-based testing",
+    "additional coverage prioritization",
+    "risk analysis"
+   ]
+  },
+  {
+   "lo": "FL-5.1.6",
+   "k": "K1",
+   "loEn": "Recall the concepts of the test pyramid",
+   "loVi": "Nhắc lại các khái niệm của kim tự tháp kiểm thử",
+   "sec": "5.1.6",
+   "title": "Test Pyramid",
+   "titleVi": "Kim tự tháp kiểm thử",
+   "page": 50,
+   "summary": [
+    "Kim tự tháp kiểm thử (test pyramid) là mô hình cho thấy các test có độ chi tiết (granularity) khác nhau; hỗ trợ nhóm trong tự động hóa kiểm thử và phân bổ công sức kiểm thử.",
+    "Các tầng biểu diễn các nhóm test. Tầng càng CAO: granularity càng thấp, mức cô lập (isolation – mức độ phụ thuộc vào thành phần khác) càng thấp, thời gian thực thi càng cao.",
+    "Tầng ĐÁY: test nhỏ, cô lập, nhanh, kiểm một phần chức năng nhỏ → cần NHIỀU test để đạt coverage hợp lý.",
+    "Tầng ĐỈNH: test end-to-end phức tạp, mức cao, chậm hơn, kiểm phần chức năng lớn → chỉ cần ÍT test.",
+    "Số lượng và tên các tầng có thể khác nhau: mô hình gốc của Cohn (2009) có 3 tầng 'unit tests', 'service tests', 'UI tests'; mô hình phổ biến khác: unit (component) tests, integration (component integration) tests, end-to-end tests. Có thể dùng các test level khác."
+   ],
+   "en": [
+    "The test pyramid is a model showing that different tests may have different granularity.",
+    "The higher the layer, the lower the test granularity, the lower the test isolation … and the higher the test execution time.",
+    "Tests in the bottom layer are small, isolated, fast, and check a small piece of functionality, so usually a lot of them are needed."
+   ],
+   "tips": [
+    "Nhớ chiều: lên cao → chậm hơn, ít cô lập hơn, ít test hơn, granularity thấp hơn. Đáy → nhanh, cô lập, nhiều test.",
+    "Test pyramid nói về GRANULARITY và phân bổ automation/effort; đừng nhầm với testing quadrants (business/technology facing)."
+   ],
+   "terms": [
+    "test pyramid"
+   ]
+  },
+  {
+   "lo": "FL-5.1.7",
+   "k": "K2",
+   "loEn": "Summarize the testing quadrants and their relationships with test levels and test types",
+   "loVi": "Tóm tắt các góc phần tư kiểm thử và mối quan hệ của chúng với test level và test type",
+   "sec": "5.1.7",
+   "title": "Testing Quadrants",
+   "titleVi": "Các góc phần tư kiểm thử",
+   "page": 51,
+   "summary": [
+    "Các góc phần tư kiểm thử (testing quadrants), do Brian Marick định nghĩa, nhóm các test level với test type, hoạt động, kỹ thuật và work product phù hợp trong phát triển Agile.",
+    "Mô hình giúp quản lý kiểm thử trực quan hóa để đảm bảo đủ các test type và test level cần thiết trong SDLC, hiểu rằng một số test type liên quan đến một số test level hơn; và là cách mô tả test type cho mọi stakeholders (dev, tester, đại diện nghiệp vụ).",
+    "Hai trục: hướng nghiệp vụ (business facing) vs hướng công nghệ (technology facing); hỗ trợ nhóm (support the team – dẫn dắt phát triển) vs phê bình sản phẩm (critique the product – đo hành vi so với kỳ vọng).",
+    "Q1 (technology facing, support the team): component tests và component integration tests; nên tự động hóa và đưa vào CI.",
+    "Q2 (business facing, support the team): functional tests, examples, user story tests, nguyên mẫu trải nghiệm người dùng (user experience prototypes), API testing, mô phỏng (simulations); kiểm tra acceptance criteria; thủ công hoặc tự động.",
+    "Q3 (business facing, critique the product): exploratory testing, usability testing, user acceptance testing; hướng người dùng, thường thủ công.",
+    "Q4 (technology facing, critique the product): smoke tests và non-functional tests (TRỪ usability tests); thường tự động."
+   ],
+   "en": [
+    "In this model, tests can be business facing or technology facing. Tests can also support the team (i.e., guide the development) or critique the product.",
+    "Quadrant Q1 (technology facing, support the team). This quadrant contains component tests and component integration tests.",
+    "Quadrant Q3 (business facing, critique the product). This quadrant contains exploratory testing, usability testing, user acceptance testing.",
+    "Quadrant Q4 (technology facing, critique the product). This quadrant contains smoke tests and non-functional tests (except usability tests)."
+   ],
+   "tips": [
+    "Bẫy kinh điển: usability testing ở Q3 chứ không phải Q4 (dù là non-functional). Smoke test ở Q4. API testing ở Q2.",
+    "Mẹo nhớ: Q1/Q2 'support the team' (trước/trong phát triển), Q3/Q4 'critique the product'; Q1 & Q4 technology facing (thường tự động), Q2 & Q3 business facing."
+   ],
+   "terms": [
+    "testing quadrants"
+   ]
+  },
+  {
+   "lo": "FL-5.2.1",
+   "k": "K1",
+   "loEn": "Identify risk level by using risk likelihood and risk impact",
+   "loVi": "Xác định mức độ rủi ro bằng khả năng xảy ra và mức tác động của rủi ro",
+   "sec": "5.2.1",
+   "title": "Risk Definition and Risk Attributes",
+   "titleVi": "Định nghĩa rủi ro và các thuộc tính của rủi ro",
+   "page": 52,
+   "summary": [
+    "Bối cảnh 5.2: quản lý rủi ro (risk management) giúp tổ chức tăng khả năng đạt mục tiêu, cải thiện chất lượng sản phẩm, tăng niềm tin của stakeholders. Hai hoạt động chính: phân tích rủi ro (risk analysis = risk identification + risk assessment) và kiểm soát rủi ro (risk control = risk mitigation + risk monitoring).",
+    "Kiểm thử dựa trên rủi ro (risk-based testing): cách tiếp cận kiểm thử trong đó các hoạt động kiểm thử được chọn, ưu tiên và quản lý dựa trên risk analysis và risk control.",
+    "Rủi ro (risk) là một sự kiện, mối nguy, mối đe dọa hoặc tình huống tiềm ẩn mà nếu xảy ra sẽ gây tác động bất lợi.",
+    "Hai yếu tố đặc trưng của rủi ro: khả năng xảy ra (risk likelihood) — xác suất xảy ra, lớn hơn 0 và nhỏ hơn 1; và tác động (risk impact / harm) — hậu quả khi xảy ra.",
+    "Hai yếu tố này biểu thị mức độ rủi ro (risk level) — thước đo của rủi ro. Risk level càng cao thì việc xử lý càng quan trọng.",
+    "Cách tính (theo 5.2.3): định lượng — risk level = likelihood × impact; định tính — dùng ma trận rủi ro (risk matrix). Ví dụ: likelihood 0.4, impact 5 → risk level 2.0; likelihood 0.8, impact 2 → 1.6 → rủi ro đầu cao hơn."
+   ],
+   "en": [
+    "Risk is a potential event, hazard, threat, or situation whose occurrence causes an adverse effect.",
+    "Risk likelihood – the probability of the risk occurrence (greater than zero and less than one).",
+    "These two factors express the risk level, which is a measure for the risk. The higher the risk level, the more important is its treatment."
+   ],
+   "tips": [
+    "Likelihood luôn nằm trong (0,1): xác suất = 0 không phải rủi ro, = 1 là đã thành sự cố (issue). Risk level phụ thuộc CẢ hai yếu tố, không chỉ impact.",
+    "Khi đề cho bảng likelihood/impact, nhân lại rồi so sánh; với thang định tính (low/medium/high) thì tra risk matrix."
+   ],
+   "terms": [
+    "risk",
+    "risk level",
+    "risk likelihood",
+    "risk impact",
+    "risk management",
+    "risk-based testing"
+   ]
+  },
+  {
+   "lo": "FL-5.2.2",
+   "k": "K2",
+   "loEn": "Distinguish between project risks and product risks",
+   "loVi": "Phân biệt rủi ro dự án và rủi ro sản phẩm",
+   "sec": "5.2.2",
+   "title": "Project Risks and Product Risks",
+   "titleVi": "Rủi ro dự án và rủi ro sản phẩm",
+   "page": 52,
+   "summary": [
+    "Trong kiểm thử có 2 loại rủi ro: rủi ro dự án (project risks) và rủi ro sản phẩm (product risks).",
+    "Project risks liên quan tới quản lý và kiểm soát dự án, gồm 4 nhóm: Tổ chức (organizational: giao work product trễ, ước lượng sai, cắt giảm chi phí); Con người (people: thiếu kỹ năng, xung đột, vấn đề giao tiếp, thiếu nhân sự); Kỹ thuật (technical: phình phạm vi – scope creep, công cụ hỗ trợ kém); Nhà cung cấp (supplier: bên thứ ba giao hàng thất bại, công ty hỗ trợ phá sản).",
+    "Khi xảy ra, project risks ảnh hưởng tới lịch trình, ngân sách hoặc phạm vi → ảnh hưởng khả năng đạt mục tiêu dự án.",
+    "Product risks liên quan tới đặc tính chất lượng sản phẩm (vd theo mô hình ISO 25010). Ví dụ: thiếu/sai chức năng, tính toán sai, lỗi runtime, kiến trúc kém, thuật toán kém hiệu quả, thời gian phản hồi không đạt, trải nghiệm người dùng kém, lỗ hổng bảo mật.",
+    "Hậu quả của product risks: người dùng không hài lòng; mất doanh thu, niềm tin, uy tín; thiệt hại cho bên thứ ba; chi phí bảo trì cao, quá tải help desk; chế tài hình sự; trường hợp cực đoan: thiệt hại vật chất, thương tích, thậm chí tử vong."
+   ],
+   "en": [
+    "Project risks are related to the management and control of the project.",
+    "Project risks, when they occur, may have an impact on the project schedule, budget or scope.",
+    "Product risks are related to the product quality characteristics (e.g., described in the ISO 25010 quality model)."
+   ],
+   "tips": [
+    "Câu hỏi: 'rủi ro này ảnh hưởng tới CHẤT LƯỢNG phần mềm hay tới LỊCH/NGÂN SÁCH/PHẠM VI dự án?' → product vs project. Vd 'test environment giao trễ', 'tester thiếu kỹ năng', 'tool kém' = project; 'response time chậm', 'tính sai thuế', 'lỗ hổng bảo mật' = product.",
+    "Bẫy: 'poor tool support' và 'scope creep' là project risk (technical issues), còn 'poor architecture' là product risk."
+   ],
+   "terms": [
+    "project risk",
+    "product risk",
+    "risk"
+   ]
+  },
+  {
+   "lo": "FL-5.2.3",
+   "k": "K2",
+   "loEn": "Explain how product risk analysis may influence thoroughness and test scope",
+   "loVi": "Giải thích cách phân tích rủi ro sản phẩm có thể ảnh hưởng tới độ kỹ lưỡng và phạm vi kiểm thử",
+   "sec": "5.2.3",
+   "title": "Product Risk Analysis",
+   "titleVi": "Phân tích rủi ro sản phẩm",
+   "page": 52,
+   "summary": [
+    "Mục tiêu của phân tích rủi ro sản phẩm (product risk analysis) từ góc độ kiểm thử: nâng nhận thức về product risk để tập trung test effort sao cho mức rủi ro còn lại (residual risk) là nhỏ nhất. Lý tưởng là bắt đầu sớm trong SDLC.",
+    "Gồm 2 bước: nhận diện rủi ro (risk identification) — tạo danh sách rủi ro toàn diện bằng brainstorming, workshop, phỏng vấn, sơ đồ nhân quả (cause-effect diagrams)…; và đánh giá rủi ro (risk assessment).",
+    "Risk assessment gồm: phân loại (categorization) rủi ro, xác định likelihood, impact và risk level, ưu tiên hóa, đề xuất cách xử lý. Phân loại giúp gán hành động giảm thiểu vì rủi ro cùng loại thường giảm thiểu theo cách tương tự.",
+    "Đánh giá có thể định lượng (quantitative: risk level = likelihood × impact), định tính (qualitative: dùng risk matrix), hoặc kết hợp.",
+    "Kết quả product risk analysis được dùng để (6 mục): xác định phạm vi kiểm thử (test scope); xác định test level và đề xuất test type; xác định test technique và mức coverage cần đạt; ước lượng test effort cho từng task; ưu tiên kiểm thử để tìm defect nghiêm trọng càng sớm càng tốt; xác định có cần hoạt động nào ngoài kiểm thử để giảm rủi ro không."
+   ],
+   "en": [
+    "The goal of product risk analysis is to provide an awareness of product risk to focus the test effort in a way that minimizes the residual level of product risk.",
+    "Product risk analysis consists of risk identification and risk assessment.",
+    "In the quantitative approach the risk level is calculated as the multiplication of risk likelihood and risk impact. In the qualitative approach the risk level can be determined using a risk matrix."
+   ],
+   "tips": [
+    "Phân biệt: risk identification = LIỆT KÊ rủi ro (brainstorming, interview…); risk assessment = phân loại, tính likelihood/impact/level, ưu tiên, đề xuất xử lý.",
+    "Rủi ro cao → kiểm thử kỹ hơn (kỹ thuật chặt hơn, coverage cao hơn, effort nhiều hơn, chạy sớm hơn) — đó là cách risk analysis ảnh hưởng 'thoroughness and test scope'."
+   ],
+   "terms": [
+    "risk analysis",
+    "risk identification",
+    "risk assessment",
+    "product risk",
+    "risk level"
+   ]
+  },
+  {
+   "lo": "FL-5.2.4",
+   "k": "K2",
+   "loEn": "Explain what measures can be taken in response to analyzed product risks",
+   "loVi": "Giải thích các biện pháp có thể thực hiện để ứng phó với các rủi ro sản phẩm đã phân tích",
+   "sec": "5.2.4",
+   "title": "Product Risk Control",
+   "titleVi": "Kiểm soát rủi ro sản phẩm",
+   "page": 53,
+   "summary": [
+    "Kiểm soát rủi ro sản phẩm (product risk control) gồm mọi biện pháp thực hiện để ứng phó với rủi ro đã nhận diện và đánh giá; gồm giảm thiểu rủi ro (risk mitigation) và giám sát rủi ro (risk monitoring).",
+    "Risk mitigation: thực hiện các hành động đã đề xuất trong risk assessment để giảm risk level.",
+    "Risk monitoring nhằm: đảm bảo các hành động giảm thiểu có hiệu quả; thu thêm thông tin để cải thiện risk assessment; nhận diện rủi ro mới phát sinh (emerging risks).",
+    "Các phương án ứng phó sau khi phân tích: giảm thiểu bằng kiểm thử (risk mitigation by testing), chấp nhận rủi ro (risk acceptance), chuyển giao rủi ro (risk transfer), hoặc kế hoạch dự phòng (contingency plan).",
+    "6 hành động giảm thiểu product risk bằng kiểm thử: chọn tester có kinh nghiệm và kỹ năng phù hợp với loại rủi ro; áp dụng mức độc lập kiểm thử phù hợp; thực hiện review và static analysis; áp dụng test technique và mức coverage phù hợp; áp dụng test type phù hợp với đặc tính chất lượng bị ảnh hưởng; thực hiện dynamic testing, kể cả regression testing."
+   ],
+   "en": [
+    "Product risk control consists of risk mitigation and risk monitoring.",
+    "Risk mitigation involves implementing the actions proposed in risk assessment to reduce the risk level.",
+    "Several response options to risk are possible, e.g., risk mitigation by testing, risk acceptance, risk transfer, or a contingency plan."
+   ],
+   "tips": [
+    "Phân biệt: mitigation = hành động GIẢM risk level; monitoring = THEO DÕI xem mitigation có hiệu quả và phát hiện rủi ro mới.",
+    "Risk control (mitigation + monitoring) khác risk analysis (identification + assessment) — đề hay hỏi hoạt động nào thuộc nhóm nào."
+   ],
+   "terms": [
+    "risk control",
+    "risk mitigation",
+    "risk monitoring",
+    "product risk"
+   ]
+  },
+  {
+   "lo": "FL-5.3.1",
+   "k": "K1",
+   "loEn": "Recall metrics used for testing",
+   "loVi": "Nhắc lại các chỉ số (metrics) dùng trong kiểm thử",
+   "sec": "5.3.1",
+   "title": "Metrics used in Testing",
+   "titleVi": "Các chỉ số dùng trong kiểm thử",
+   "page": 54,
+   "summary": [
+    "Bối cảnh 5.3: giám sát kiểm thử (test monitoring) thu thập thông tin về kiểm thử để đánh giá tiến độ và đo xem exit criteria đã thỏa chưa. Điều khiển kiểm thử (test control) dùng thông tin đó đưa ra chỉ thị điều khiển (control directives) và hành động khắc phục.",
+    "Ví dụ control directives: ưu tiên lại test khi một rủi ro đã thành sự cố (issue); đánh giá lại test item có đạt entry/exit criteria do làm lại; điều chỉnh lịch kiểm thử khi môi trường kiểm thử giao trễ; bổ sung nguồn lực khi cần.",
+    "Hoàn tất kiểm thử (test completion) thu thập dữ liệu từ hoạt động đã xong để tổng hợp kinh nghiệm, testware; diễn ra ở các mốc: xong test level, xong iteration, xong (hoặc hủy) dự án, phát hành hệ thống, xong bản phát hành bảo trì.",
+    "Metrics dùng để thể hiện tiến độ so với lịch/ngân sách, chất lượng hiện tại của test object, và hiệu quả của hoạt động kiểm thử so với mục tiêu.",
+    "7 nhóm metrics phổ biến: Tiến độ dự án (project progress: hoàn thành task, sử dụng nguồn lực, test effort); Tiến độ kiểm thử (test progress: tiến độ hiện thực test case, chuẩn bị môi trường, số test chạy/chưa chạy, pass/fail, thời gian thực thi); Chất lượng sản phẩm (product quality: availability, response time, mean time to failure); Defect (số lượng và độ ưu tiên defect tìm được/đã sửa, defect density, defect detection percentage); Rủi ro (risk: residual risk level); Coverage (requirements coverage, code coverage); Chi phí (cost: chi phí kiểm thử, chi phí chất lượng của tổ chức)."
+   ],
+   "en": [
+    "Test monitoring is concerned with gathering information about testing.",
+    "Test control uses the information from test monitoring to provide, in a form of the control directives, guidance and the necessary corrective actions.",
+    "Test metrics are gathered to show progress against the planned test schedule and budget, the current quality of the test object, and the effectiveness of the test activities."
+   ],
+   "tips": [
+    "Đề hay hỏi metric thuộc nhóm nào: 'mean time to failure' = product quality; 'defect density/defect detection percentage' = defect metrics; 'residual risk level' = risk; 'số test case pass/fail' = test progress.",
+    "Monitoring = THU THẬP thông tin; control = HÀNH ĐỘNG điều chỉnh (control directives). Đừng đảo ngược."
+   ],
+   "terms": [
+    "test monitoring",
+    "test control"
+   ]
+  },
+  {
+   "lo": "FL-5.3.2",
+   "k": "K2",
+   "loEn": "Summarize the purposes, content, and audiences for test reports",
+   "loVi": "Tóm tắt mục đích, nội dung và đối tượng của các báo cáo kiểm thử",
+   "sec": "5.3.2",
+   "title": "Purpose, Content and Audience for Test Reports",
+   "titleVi": "Mục đích, nội dung và đối tượng của báo cáo kiểm thử",
+   "page": 54,
+   "summary": [
+    "Báo cáo kiểm thử tóm tắt và truyền đạt thông tin kiểm thử trong và sau kiểm thử. Có 2 loại: báo cáo tiến độ (test progress report) và báo cáo hoàn tất (test completion report).",
+    "Test progress report hỗ trợ test control liên tục, phải đủ thông tin để điều chỉnh lịch, nguồn lực hoặc test plan khi có sai lệch; thường lập định kỳ (hằng ngày, hằng tuần…).",
+    "Nội dung test progress report (6 mục): giai đoạn kiểm thử (testing period); tiến độ (sớm/trễ so với lịch) kèm các sai lệch đáng chú ý; trở ngại và cách khắc phục tạm (impediments and workarounds); test metrics; rủi ro mới và thay đổi trong giai đoạn; kiểm thử dự kiến cho giai đoạn tiếp theo.",
+    "Test completion report lập trong test completion, khi dự án/test level/test type hoàn tất và lý tưởng là exit criteria đã đạt; dùng các progress report và dữ liệu khác.",
+    "Nội dung test completion report (7 mục): tóm tắt kiểm thử (test summary); đánh giá kiểm thử và chất lượng sản phẩm dựa trên test plan gốc (test objectives, exit criteria); sai lệch so với test plan (lịch, thời lượng, effort); trở ngại và workaround; test metrics dựa trên progress reports; rủi ro chưa giảm thiểu, defect chưa sửa; bài học kinh nghiệm (lessons learned).",
+    "Đối tượng (audience) khác nhau cần thông tin khác nhau, ảnh hưởng mức trang trọng và tần suất: báo cáo tiến độ trong nhóm thường thường xuyên và không chính thức; báo cáo hoàn tất theo mẫu cố định và chỉ diễn ra một lần. ISO/IEC/IEEE 29119-3 có mẫu (progress report gọi là test status report)."
+   ],
+   "en": [
+    "Test progress reports support the ongoing test control.",
+    "Test completion reports summarize a specific test activity (e.g., test level, test cycle, iteration) and can give information for subsequent testing.",
+    "Test progress reporting to others in the same team is often frequent and informal, while test completion reporting follows a set template and occurs only once."
+   ],
+   "tips": [
+    "'Testing planned for the next period' chỉ có ở PROGRESS report; 'lessons learned', 'unmitigated risks, defects not fixed', 'evaluation based on the original test plan' là của COMPLETION report.",
+    "Test status report (theo 29119-3) = test progress report."
+   ],
+   "terms": [
+    "test progress report",
+    "test completion report",
+    "test monitoring",
+    "test control"
+   ]
+  },
+  {
+   "lo": "FL-5.3.3",
+   "k": "K2",
+   "loEn": "Exemplify how to communicate the status of testing",
+   "loVi": "Nêu ví dụ minh họa cách truyền đạt tình trạng kiểm thử",
+   "sec": "5.3.3",
+   "title": "Communicating the Status of Testing",
+   "titleVi": "Truyền đạt tình trạng kiểm thử",
+   "page": 55,
+   "summary": [
+    "Cách tốt nhất để truyền đạt tình trạng kiểm thử tùy thuộc vào mối quan tâm quản lý kiểm thử, chiến lược kiểm thử của tổ chức, chuẩn quy định (regulatory standards), hoặc — với nhóm tự tổ chức (self-organizing teams) — do chính nhóm quyết định.",
+    "Các phương án (5): giao tiếp bằng lời với thành viên nhóm và stakeholders; dashboard (vd CI/CD dashboard, task board, biểu đồ burn-down); kênh điện tử (email, chat); tài liệu trực tuyến (online documentation); báo cáo kiểm thử chính thức (formal test reports).",
+    "Có thể dùng một hoặc kết hợp nhiều phương án.",
+    "Giao tiếp trang trọng hơn phù hợp với nhóm phân tán (distributed teams), khi không thể gặp trực tiếp do khoảng cách địa lý hoặc chênh lệch múi giờ.",
+    "Các stakeholders khác nhau quan tâm tới thông tin khác nhau → nội dung giao tiếp cần được điều chỉnh (tailored) cho phù hợp."
+   ],
+   "en": [
+    "Dashboards (e.g., CI/CD dashboards, task boards, and burn-down charts).",
+    "More formal communication may be more appropriate for distributed teams where direct face-to-face communication is not always possible.",
+    "Different stakeholders are interested in different types of information, so communication should be tailored accordingly."
+   ],
+   "tips": [
+    "Câu hỏi tình huống: nhóm phân tán nhiều múi giờ → chọn phương án trang trọng hơn (formal report, tài liệu online) thay vì chỉ trao đổi miệng.",
+    "Burn-down chart thuộc nhóm 'dashboards'."
+   ],
+   "terms": [
+    "burn-down chart",
+    "test progress report"
+   ]
+  },
+  {
+   "lo": "FL-5.4.1",
+   "k": "K2",
+   "loEn": "Summarize how configuration management supports testing",
+   "loVi": "Tóm tắt cách quản lý cấu hình hỗ trợ kiểm thử",
+   "sec": "5.4",
+   "title": "Configuration Management",
+   "titleVi": "Quản lý cấu hình",
+   "page": 56,
+   "summary": [
+    "Trong kiểm thử, quản lý cấu hình (configuration management – CM) cung cấp kỷ luật để nhận diện, kiểm soát và theo dõi các work product như test plan, test strategy, test condition, test case, test script, test result, test log, test report — dưới dạng các mục cấu hình (configuration items).",
+    "Với configuration item phức tạp (vd test environment), CM ghi lại các thành phần cấu thành, quan hệ giữa chúng và phiên bản.",
+    "Khi configuration item được phê duyệt để kiểm thử, nó trở thành đường cơ sở (baseline) và chỉ có thể thay đổi qua quy trình kiểm soát thay đổi chính thức (formal change control process).",
+    "CM lưu lại các configuration item đã thay đổi khi tạo baseline mới; có thể quay lại baseline trước để tái tạo kết quả kiểm thử trước đó.",
+    "Để hỗ trợ kiểm thử, CM đảm bảo: (1) mọi configuration item, kể cả test item, được định danh duy nhất, quản lý phiên bản, theo dõi thay đổi và liên kết với nhau để duy trì truy vết (traceability) suốt quá trình kiểm thử; (2) mọi tài liệu và phần mềm được tham chiếu rõ ràng, không mơ hồ trong testware.",
+    "CI, continuous delivery, continuous deployment và kiểm thử liên quan thường được triển khai trong pipeline DevOps tự động, trong đó thường có CM tự động."
+   ],
+   "en": [
+    "Configuration management (CM) provides a discipline for identifying, controlling, and tracking work products … as configuration items.",
+    "If the configuration item is approved for testing, it becomes a baseline and can only be changed through a formal change control process.",
+    "It is possible to revert to a previous baseline to reproduce previous test results."
+   ],
+   "tips": [
+    "Lợi ích then chốt: định danh duy nhất + version control + traceability + tái tạo kết quả cũ (revert baseline). Đáp án nói CM 'tìm defect' hay 'ưu tiên test' là sai.",
+    "CM quản lý cả testware (test case, test log, report…), không chỉ source code."
+   ],
+   "terms": [
+    "configuration management",
+    "baseline"
+   ]
+  },
+  {
+   "lo": "FL-5.5.1",
+   "k": "K3",
+   "loEn": "Prepare a defect report",
+   "loVi": "Lập một báo cáo lỗi",
+   "sec": "5.5",
+   "title": "Defect Management",
+   "titleVi": "Quản lý lỗi",
+   "page": 56,
+   "summary": [
+    "Quản lý lỗi (defect management) cần một quy trình được thiết lập. Bất thường (anomaly) được báo cáo có thể là defect thật hoặc thứ khác (vd kết quả dương tính giả – false positive, yêu cầu thay đổi – change request); điều này được giải quyết khi xử lý defect report. Anomaly có thể được báo cáo ở bất kỳ giai đoạn nào của SDLC.",
+    "Tối thiểu, quy trình gồm workflow xử lý từng defect từ khi phát hiện đến khi đóng và quy tắc phân loại. Workflow điển hình: ghi nhận (log) → phân tích và phân loại → quyết định phản hồi (sửa hay giữ nguyên) → đóng defect report. Mọi stakeholders phải tuân theo; nên xử lý defect từ static testing (đặc biệt static analysis) tương tự.",
+    "3 mục tiêu của defect report: cung cấp đủ thông tin cho người chịu trách nhiệm xử lý để giải quyết vấn đề; là phương tiện theo dõi chất lượng work product; đưa ra ý tưởng cải tiến quy trình phát triển và kiểm thử.",
+    "Nội dung defect report trong dynamic testing (phần 1): (1) mã định danh duy nhất (unique identifier); (2) tiêu đề với tóm tắt ngắn về anomaly; (3) ngày quan sát, tổ chức phát hành, tác giả kèm vai trò; (4) định danh test object và test environment; (5) bối cảnh defect (test case đang chạy, hoạt động kiểm thử, giai đoạn SDLC, kỹ thuật/checklist/test data đang dùng).",
+    "Nội dung defect report (phần 2): (6) mô tả failure để tái hiện và giải quyết — các bước kiểm thử phát hiện anomaly, test log, database dump, ảnh chụp màn hình, bản ghi; (7) kết quả mong đợi (expected results) và kết quả thực tế (actual results); (8) mức độ nghiêm trọng (severity – mức tác động tới lợi ích stakeholders hoặc yêu cầu); (9) độ ưu tiên sửa (priority to fix); (10) trạng thái (status: open, deferred, duplicate, waiting to be fixed, awaiting confirmation testing, re-opened, closed, rejected); (11) tham chiếu (references, vd tới test case).",
+    "Một số dữ liệu có thể được công cụ quản lý defect tự điền (identifier, ngày, tác giả, trạng thái ban đầu). ISO/IEC/IEEE 29119-3 gọi defect report là incident report.",
+    "Ví dụ: ID BUG-102; Tiêu đề 'Tổng giỏ hàng sai khi áp mã giảm 10%'; Môi trường: Chrome 120, staging build 3.2; Bước: thêm SP 200.000đ → nhập mã SALE10 → xem tổng; Mong đợi 180.000đ; Thực tế 200.000đ; Severity: High; Priority: High; Status: Open; Reference: TC-45."
+   ],
+   "en": [
+    "Although we refer to \"defects\" here, the reported anomalies may turn out to be real defects or something else (e.g., false-positive result, change request).",
+    "Provide those responsible for handling and resolving reported defects with sufficient information to resolve the issue.",
+    "Description of the failure to enable reproduction and resolution including the test steps that detected the anomaly.",
+    "Severity of the defect (degree of impact) on the interests of stakeholders or requirements."
+   ],
+   "tips": [
+    "Severity = mức độ tác động (kỹ thuật/nghiệp vụ); priority = mức khẩn cấp cần sửa. Hai cái có thể khác nhau (vd lỗi chính tả logo: severity thấp, priority cao).",
+    "Câu K3 thường cho một defect report và hỏi 'thiếu thông tin quan trọng nào' — kiểm tra: bước tái hiện, expected vs actual, môi trường/test object, severity/priority. 'Đề xuất cách sửa code' hay 'tên người gây lỗi' KHÔNG phải nội dung bắt buộc."
+   ],
+   "terms": [
+    "defect management",
+    "defect report",
+    "severity",
+    "priority"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "en": "defect management",
+   "vi": "quản lý lỗi",
+   "kw": true,
+   "def": "Quy trình xử lý các bất thường được báo cáo từ khi phát hiện đến khi đóng, gồm workflow (ghi nhận, phân tích, phân loại, quyết định xử lý, đóng) và quy tắc phân loại."
+  },
+  {
+   "en": "defect report",
+   "vi": "báo cáo lỗi",
+   "kw": true,
+   "def": "Tài liệu ghi lại một bất thường để người xử lý có đủ thông tin giải quyết, theo dõi chất lượng work product và gợi ý cải tiến quy trình; gồm ID, tiêu đề, bước tái hiện, expected/actual, severity, priority, status…"
+  },
+  {
+   "en": "entry criteria",
+   "vi": "tiêu chí đầu vào",
+   "kw": true,
+   "def": "Các điều kiện tiên quyết để bắt đầu một hoạt động (vd sẵn có nguồn lực, testware, smoke test đã pass). Trong Agile tương ứng Definition of Ready."
+  },
+  {
+   "en": "exit criteria",
+   "vi": "tiêu chí đầu ra",
+   "kw": true,
+   "def": "Những gì phải đạt được để tuyên bố một hoạt động hoàn thành (vd mức coverage, số defect chưa giải quyết, đã chạy hết test theo kế hoạch). Trong Agile tương ứng Definition of Done."
+  },
+  {
+   "en": "product risk",
+   "vi": "rủi ro sản phẩm",
+   "kw": true,
+   "def": "Rủi ro liên quan đến đặc tính chất lượng của sản phẩm (vd thiếu/sai chức năng, tính toán sai, phản hồi chậm, lỗ hổng bảo mật)."
+  },
+  {
+   "en": "project risk",
+   "vi": "rủi ro dự án",
+   "kw": true,
+   "def": "Rủi ro liên quan đến quản lý và kiểm soát dự án (vấn đề tổ chức, con người, kỹ thuật, nhà cung cấp); ảnh hưởng lịch trình, ngân sách hoặc phạm vi."
+  },
+  {
+   "en": "risk",
+   "vi": "rủi ro",
+   "kw": true,
+   "def": "Một sự kiện, mối nguy, mối đe dọa hoặc tình huống tiềm ẩn mà nếu xảy ra sẽ gây tác động bất lợi; đặc trưng bởi likelihood và impact."
+  },
+  {
+   "en": "risk analysis",
+   "vi": "phân tích rủi ro",
+   "kw": true,
+   "def": "Hoạt động gồm nhận diện rủi ro (risk identification) và đánh giá rủi ro (risk assessment)."
+  },
+  {
+   "en": "risk assessment",
+   "vi": "đánh giá rủi ro",
+   "kw": true,
+   "def": "Phân loại rủi ro đã nhận diện, xác định likelihood, impact và risk level, ưu tiên hóa và đề xuất cách xử lý; có thể định lượng hoặc định tính."
+  },
+  {
+   "en": "risk control",
+   "vi": "kiểm soát rủi ro",
+   "kw": true,
+   "def": "Tất cả biện pháp ứng phó với rủi ro đã phân tích, gồm giảm thiểu rủi ro (risk mitigation) và giám sát rủi ro (risk monitoring)."
+  },
+  {
+   "en": "risk identification",
+   "vi": "nhận diện rủi ro",
+   "kw": true,
+   "def": "Tạo ra danh sách rủi ro toàn diện, bằng các kỹ thuật như brainstorming, workshop, phỏng vấn, sơ đồ nhân quả."
+  },
+  {
+   "en": "risk level",
+   "vi": "mức độ rủi ro",
+   "kw": true,
+   "def": "Thước đo của rủi ro, xác định từ risk likelihood và risk impact (định lượng: likelihood × impact; định tính: risk matrix). Càng cao càng cần ưu tiên xử lý."
+  },
+  {
+   "en": "risk management",
+   "vi": "quản lý rủi ro",
+   "kw": true,
+   "def": "Các hoạt động giúp tổ chức tăng khả năng đạt mục tiêu, cải thiện chất lượng và niềm tin; gồm risk analysis và risk control."
+  },
+  {
+   "en": "risk mitigation",
+   "vi": "giảm thiểu rủi ro",
+   "kw": true,
+   "def": "Thực hiện các hành động đã đề xuất trong risk assessment nhằm giảm mức độ rủi ro (vd kiểm thử kỹ hơn, review, chọn tester phù hợp)."
+  },
+  {
+   "en": "risk monitoring",
+   "vi": "giám sát rủi ro",
+   "kw": true,
+   "def": "Theo dõi để đảm bảo các hành động giảm thiểu có hiệu quả, thu thêm thông tin cải thiện risk assessment và phát hiện rủi ro mới phát sinh."
+  },
+  {
+   "en": "risk-based testing",
+   "vi": "kiểm thử dựa trên rủi ro",
+   "kw": true,
+   "def": "Cách tiếp cận kiểm thử trong đó các hoạt động kiểm thử được chọn, ưu tiên và quản lý dựa trên phân tích rủi ro và kiểm soát rủi ro."
+  },
+  {
+   "en": "test approach",
+   "vi": "cách tiếp cận kiểm thử",
+   "kw": true,
+   "def": "Phần của test plan mô tả cách kiểm thử: test levels, test types, test techniques, deliverables, entry/exit criteria, mức độc lập, metrics, yêu cầu test data và môi trường."
+  },
+  {
+   "en": "test completion report",
+   "vi": "báo cáo hoàn tất kiểm thử",
+   "kw": true,
+   "def": "Báo cáo lập khi một dự án/test level/test type hoàn tất; gồm tóm tắt, đánh giá theo test plan gốc, sai lệch, rủi ro chưa giảm thiểu, defect chưa sửa, bài học kinh nghiệm."
+  },
+  {
+   "en": "test control",
+   "vi": "điều khiển kiểm thử",
+   "kw": true,
+   "def": "Dùng thông tin từ test monitoring để đưa ra chỉ thị điều khiển (control directives) và hành động khắc phục nhằm kiểm thử hiệu quả nhất."
+  },
+  {
+   "en": "test monitoring",
+   "vi": "giám sát kiểm thử",
+   "kw": true,
+   "def": "Thu thập thông tin về kiểm thử để đánh giá tiến độ và đo xem exit criteria đã được đáp ứng chưa."
+  },
+  {
+   "en": "test plan",
+   "vi": "kế hoạch kiểm thử",
+   "kw": true,
+   "def": "Tài liệu mô tả mục tiêu kiểm thử, nguồn lực và quy trình cho một dự án kiểm thử; cũng là phương tiện giao tiếp với stakeholders."
+  },
+  {
+   "en": "test planning",
+   "vi": "lập kế hoạch kiểm thử",
+   "kw": true,
+   "def": "Hoạt động xây dựng và cập nhật test plan, buộc tester suy nghĩ trước về rủi ro, lịch trình, con người, công cụ, chi phí, effort."
+  },
+  {
+   "en": "test progress report",
+   "vi": "báo cáo tiến độ kiểm thử",
+   "kw": true,
+   "def": "Báo cáo định kỳ trong quá trình kiểm thử hỗ trợ test control; gồm giai đoạn, tiến độ, trở ngại, metrics, rủi ro mới, kế hoạch giai đoạn tới. Theo 29119-3 gọi là test status report."
+  },
+  {
+   "en": "test pyramid",
+   "vi": "kim tự tháp kiểm thử",
+   "kw": true,
+   "def": "Mô hình cho thấy test có độ chi tiết khác nhau: tầng dưới nhiều test nhỏ, cô lập, nhanh; tầng trên ít test end-to-end, chậm, kém cô lập."
+  },
+  {
+   "en": "test strategy",
+   "vi": "chiến lược kiểm thử",
+   "kw": true,
+   "def": "Mô tả chung về cách kiểm thử ở cấp tổ chức; test plan phải tuân theo test policy và test strategy hoặc giải thích sự sai lệch."
+  },
+  {
+   "en": "testing quadrants",
+   "vi": "các góc phần tư kiểm thử",
+   "kw": true,
+   "def": "Mô hình của Brian Marick chia test theo hai trục business/technology facing và support the team/critique the product thành 4 góc Q1–Q4."
+  },
+  {
+   "en": "test effort",
+   "vi": "công sức kiểm thử",
+   "kw": false,
+   "def": "Lượng công việc liên quan kiểm thử (thường tính bằng person-days/person-hours) cần để đạt mục tiêu kiểm thử; được ước lượng bằng các kỹ thuật estimation."
+  },
+  {
+   "en": "wideband delphi",
+   "vi": "Wideband Delphi",
+   "kw": false,
+   "def": "Kỹ thuật ước lượng lặp dựa trên chuyên gia: mỗi người ước lượng độc lập, thảo luận khi chênh lệch vượt biên, rồi ước lượng lại cho đến khi đồng thuận."
+  },
+  {
+   "en": "planning poker",
+   "vi": "Planning Poker",
+   "kw": false,
+   "def": "Biến thể của Wideband Delphi dùng phổ biến trong Agile, các thành viên ước lượng effort bằng lá bài có số."
+  },
+  {
+   "en": "three-point estimation",
+   "vi": "ước lượng ba điểm",
+   "kw": false,
+   "def": "Kỹ thuật dựa trên chuyên gia dùng 3 giá trị a (lạc quan), m (khả dĩ nhất), b (bi quan): E = (a + 4m + b)/6, sai số SD = (b − a)/6."
+  },
+  {
+   "en": "risk likelihood",
+   "vi": "khả năng xảy ra rủi ro",
+   "kw": false,
+   "def": "Xác suất rủi ro xảy ra, lớn hơn 0 và nhỏ hơn 1."
+  },
+  {
+   "en": "risk impact",
+   "vi": "tác động của rủi ro",
+   "kw": false,
+   "def": "Hậu quả (thiệt hại – harm) khi rủi ro xảy ra."
+  },
+  {
+   "en": "definition of done",
+   "vi": "định nghĩa hoàn thành (DoD)",
+   "kw": false,
+   "def": "Tên gọi của exit criteria trong Agile: các chỉ số khách quan để một hạng mục được coi là có thể phát hành."
+  },
+  {
+   "en": "definition of ready",
+   "vi": "định nghĩa sẵn sàng (DoR)",
+   "kw": false,
+   "def": "Tên gọi của entry criteria trong Agile: điều kiện user story phải thỏa để bắt đầu phát triển và/hoặc kiểm thử."
+  },
+  {
+   "en": "configuration management",
+   "vi": "quản lý cấu hình",
+   "kw": false,
+   "def": "Kỷ luật nhận diện, kiểm soát và theo dõi các work product (kể cả testware) như các configuration item, đảm bảo định danh duy nhất, quản lý phiên bản và truy vết."
+  },
+  {
+   "en": "baseline",
+   "vi": "đường cơ sở",
+   "kw": false,
+   "def": "Configuration item đã được phê duyệt; chỉ được thay đổi qua quy trình kiểm soát thay đổi chính thức và có thể quay lại để tái tạo kết quả cũ."
+  },
+  {
+   "en": "severity",
+   "vi": "mức độ nghiêm trọng",
+   "kw": false,
+   "def": "Mức độ tác động của defect tới lợi ích của stakeholders hoặc tới yêu cầu."
+  },
+  {
+   "en": "priority",
+   "vi": "độ ưu tiên",
+   "kw": false,
+   "def": "Trong defect report: mức độ ưu tiên (khẩn cấp) cần sửa defect."
+  },
+  {
+   "en": "burn-down chart",
+   "vi": "biểu đồ burn-down",
+   "kw": false,
+   "def": "Biểu đồ trên dashboard thể hiện lượng công việc còn lại theo thời gian; một cách truyền đạt tình trạng kiểm thử."
+  },
+  {
+   "en": "additional coverage prioritization",
+   "vi": "ưu tiên theo coverage bổ sung",
+   "kw": false,
+   "def": "Biến thể của coverage-based prioritization: chạy test có coverage cao nhất trước, mỗi test tiếp theo là test đạt coverage bổ sung (chưa được phủ) cao nhất."
+  }
+ ]
+}

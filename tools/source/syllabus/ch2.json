@@ -1,0 +1,291 @@
+{
+  "chapter": {
+    "id": 2,
+    "en": "Testing Throughout the Software Development Lifecycle",
+    "vi": "Kiểm thử xuyên suốt vòng đời phát triển phần mềm",
+    "intro": "Chương này giải thích kiểm thử thay đổi thế nào theo mô hình vòng đời phát triển phần mềm (SDLC): tuần tự, lặp, Agile, DevOps, cách tiếp cận test-first, shift left và retrospective. Phần còn lại phân biệt 5 cấp độ kiểm thử, 4 loại kiểm thử, kiểm thử xác nhận với kiểm thử hồi quy, và kiểm thử bảo trì. Đề thi rất hay hỏi phân biệt cấp độ/loại kiểm thử và confirmation vs regression, nên cần nắm chắc định nghĩa."
+  },
+  "units": [
+    {
+      "lo": "FL-2.1.1", "k": "K2",
+      "loEn": "Explain the impact of the chosen software development lifecycle on testing",
+      "loVi": "Giải thích ảnh hưởng của vòng đời phát triển phần mềm được chọn đối với kiểm thử",
+      "sec": "2.1.1", "title": "Impact of the Software Development Lifecycle on Testing",
+      "titleVi": "Ảnh hưởng của vòng đời phát triển phần mềm đến kiểm thử", "page": 25,
+      "summary": [
+        "Mô hình SDLC (software development lifecycle model) là biểu diễn trừu tượng, mức cao của quy trình phát triển; ví dụ: tuần tự (sequential: waterfall, V-model), lặp (iterative: spiral, prototyping), tăng dần (incremental: Unified Process). Các phương pháp/thực hành Agile chi tiết hơn: ATDD, BDD, DDD, XP, FDD, Kanban, Lean IT, Scrum, TDD.",
+        "Kiểm thử phải được điều chỉnh theo SDLC. Việc chọn SDLC ảnh hưởng đến 5 điều: (1) phạm vi và thời điểm các hoạt động kiểm thử (vd cấp độ kiểm thử, loại kiểm thử); (2) mức chi tiết của tài liệu kiểm thử; (3) lựa chọn kỹ thuật kiểm thử và cách tiếp cận kiểm thử (test approach); (4) mức độ tự động hóa kiểm thử; (5) vai trò và trách nhiệm của tester.",
+        "Mô hình tuần tự: giai đoạn đầu tester tham gia review yêu cầu, phân tích kiểm thử (test analysis) và thiết kế kiểm thử (test design); code thực thi thường có ở giai đoạn sau nên kiểm thử động (dynamic testing) thường KHÔNG thể làm sớm.",
+        "Mô hình lặp và tăng dần: mỗi vòng lặp giao một prototype hoặc phần tăng sản phẩm chạy được, nên trong mỗi vòng có thể làm cả kiểm thử tĩnh (static) và động (dynamic) ở mọi cấp độ kiểm thử; giao thường xuyên đòi hỏi phản hồi nhanh và kiểm thử hồi quy (regression testing) rộng.",
+        "Agile giả định thay đổi có thể xảy ra suốt dự án, nên ưu tiên tài liệu sản phẩm gọn nhẹ và tự động hóa kiểm thử rộng để hồi quy dễ hơn; phần lớn kiểm thử thủ công dùng kỹ thuật dựa trên kinh nghiệm (experience-based), không cần phân tích và thiết kế trước nhiều."
+      ],
+      "en": [
+        "Testing must be adapted to the SDLC to succeed.",
+        "In sequential development models, in the initial phases testers typically participate in requirement reviews, test analysis, and test design.",
+        "Frequent delivery of increments requires fast feedback and extensive regression testing.",
+        "Lightweight work product documentation and extensive test automation to make regression testing easier are favored in agile projects."
+      ],
+      "tips": [
+        "Câu hỏi kiểu 'trong mô hình tuần tự, tester làm gì ở giai đoạn đầu?' → review yêu cầu, test analysis, test design; KHÔNG phải dynamic testing (chưa có code).",
+        "Agile → tài liệu nhẹ, nhiều automation, kiểm thử thủ công chủ yếu dựa trên kinh nghiệm. Đáp án nói Agile cần tài liệu kiểm thử chi tiết, đầy đủ là sai."
+      ],
+      "terms": ["software development lifecycle", "test level", "test type", "regression testing"]
+    },
+    {
+      "lo": "FL-2.1.2", "k": "K1",
+      "loEn": "Recall good testing practices that apply to all software development lifecycles",
+      "loVi": "Nhắc lại các thực hành kiểm thử tốt áp dụng cho mọi vòng đời phát triển phần mềm",
+      "sec": "2.1.2", "title": "Software Development Lifecycle and Good Testing Practices",
+      "titleVi": "Vòng đời phát triển phần mềm và các thực hành kiểm thử tốt", "page": 25,
+      "summary": [
+        "Có 4 thực hành kiểm thử tốt, không phụ thuộc mô hình SDLC:",
+        "(1) Với mỗi hoạt động phát triển đều có một hoạt động kiểm thử tương ứng, để mọi hoạt động phát triển đều được kiểm soát chất lượng.",
+        "(2) Các cấp độ kiểm thử (test level) khác nhau có mục tiêu kiểm thử riêng và khác nhau, giúp kiểm thử đủ toàn diện mà tránh dư thừa/trùng lặp.",
+        "(3) Phân tích và thiết kế kiểm thử cho một cấp độ bắt đầu ngay trong giai đoạn phát triển tương ứng của SDLC, để tuân theo nguyên tắc kiểm thử sớm (early testing).",
+        "(4) Tester tham gia review sản phẩm công việc (work product) ngay khi có bản nháp, để kiểm thử và phát hiện lỗi sớm hơn, hỗ trợ shift left."
+      ],
+      "en": [
+        "For every software development activity, there is a corresponding test activity, so that all development activities are subject to quality control.",
+        "Different test levels have specific and different test objectives, which allows for testing to be appropriately comprehensive while avoiding redundancy.",
+        "Testers are involved in reviewing work products as soon as drafts of these work products are available."
+      ],
+      "tips": [
+        "Bẫy: 'tester chờ tài liệu được phê duyệt/hoàn chỉnh rồi mới review' là SAI; đúng là review ngay khi có bản nháp (drafts).",
+        "Bẫy: 'test design bắt đầu sau khi code xong' là SAI; đúng là bắt đầu trong giai đoạn phát triển tương ứng. Mục tiêu các cấp độ là KHÁC nhau (tránh redundancy), không phải giống nhau."
+      ],
+      "terms": ["test level", "shift left"]
+    },
+    {
+      "lo": "FL-2.1.3", "k": "K1",
+      "loEn": "Recall the examples of test-first approaches to development",
+      "loVi": "Nhắc lại các ví dụ về cách tiếp cận phát triển viết kiểm thử trước (test-first)",
+      "sec": "2.1.3", "title": "Testing as a Driver for Software Development",
+      "titleVi": "Kiểm thử là động lực dẫn dắt phát triển phần mềm", "page": 26,
+      "summary": [
+        "TDD, ATDD và BDD là các cách tiếp cận tương tự nhau: kiểm thử được định nghĩa để dẫn dắt việc phát triển. Cả ba thực hiện nguyên tắc kiểm thử sớm (early testing), theo shift left (vì test được định nghĩa trước khi viết code) và hỗ trợ mô hình phát triển lặp (iterative).",
+        "Phát triển hướng kiểm thử (test-driven development – TDD): dẫn dắt việc code bằng test case (thay vì thiết kế phần mềm chi tiết); viết test trước, sau đó viết code để thỏa test, rồi refactor cả test và code.",
+        "Phát triển hướng kiểm thử chấp nhận (acceptance test-driven development – ATDD): suy ra test từ tiêu chí chấp nhận (acceptance criteria) như một phần của quá trình thiết kế hệ thống; test được viết trước khi phần ứng dụng tương ứng được phát triển.",
+        "Phát triển hướng hành vi (behavior-driven development – BDD): diễn đạt hành vi mong muốn của ứng dụng bằng test case viết ở dạng ngôn ngữ tự nhiên đơn giản, dễ hiểu với các bên liên quan, thường theo định dạng Given/When/Then; sau đó test case được tự động chuyển thành test thực thi được.",
+        "Với cả ba cách tiếp cận, test có thể được giữ lại thành test tự động để đảm bảo chất lượng code khi chỉnh sửa / refactor về sau."
+      ],
+      "en": [
+        "TDD, ATDD and BDD are similar development approaches, where tests are defined as a means of directing development.",
+        "Tests are written first, then the code is written to satisfy the tests, and then the tests and code are refactored.",
+        "BDD expresses the desired behavior of an application with test cases written in a simple form of natural language, usually using the Given/When/Then format."
+      ],
+      "tips": [
+        "Nhận diện nhanh: Given/When/Then → BDD; từ acceptance criteria → ATDD; viết test – code – refactor ở mức code → TDD.",
+        "Cả ba đều là 'test-first' và đều thể hiện early testing / shift left; đáp án nói chúng chỉ dùng cho mô hình tuần tự là sai (chúng hỗ trợ mô hình lặp)."
+      ],
+      "terms": ["test-driven development", "behavior-driven development", "shift left"]
+    },
+    {
+      "lo": "FL-2.1.4", "k": "K2",
+      "loEn": "Summarize how DevOps might have an impact on testing",
+      "loVi": "Tóm tắt DevOps có thể tác động đến kiểm thử như thế nào",
+      "sec": "2.1.4", "title": "DevOps and Testing",
+      "titleVi": "DevOps và kiểm thử", "page": 26,
+      "summary": [
+        "DevOps là cách tiếp cận tổ chức nhằm tạo sức mạnh tổng hợp bằng cách cho phát triển (bao gồm kiểm thử) và vận hành (operations) cùng làm việc vì mục tiêu chung; đòi hỏi thay đổi văn hóa, coi trọng ngang nhau các chức năng. DevOps thúc đẩy tự chủ của nhóm, phản hồi nhanh, chuỗi công cụ tích hợp, và thực hành CI (continuous integration) / CD (continuous delivery), để build, test, release code chất lượng nhanh hơn qua DevOps delivery pipeline.",
+        "Lợi ích cho kiểm thử (6 ý): (1) phản hồi nhanh về chất lượng code và việc thay đổi có ảnh hưởng xấu đến code hiện có không; (2) CI thúc đẩy shift left bằng cách khuyến khích developer nộp code chất lượng kèm component test và phân tích tĩnh (static analysis); (3) quy trình tự động như CI/CD giúp thiết lập môi trường kiểm thử ổn định; (4) tăng khả năng quan sát các đặc tính chất lượng phi chức năng (vd hiệu năng, độ tin cậy); (5) tự động hóa qua delivery pipeline giảm nhu cầu kiểm thử thủ công lặp lại; (6) rủi ro hồi quy được giảm thiểu nhờ quy mô và phạm vi của test hồi quy tự động.",
+        "Rủi ro và thách thức (3 ý): (1) phải định nghĩa và thiết lập DevOps delivery pipeline; (2) phải đưa vào và bảo trì công cụ CI/CD; (3) tự động hóa kiểm thử cần thêm nguồn lực, có thể khó thiết lập và duy trì.",
+        "Dù DevOps có mức tự động hóa cao, kiểm thử thủ công – nhất là từ góc nhìn người dùng – vẫn cần thiết."
+      ],
+      "en": [
+        "DevOps is an organizational approach aiming to create synergy by getting development (including testing) and operations to work together to achieve a set of common goals.",
+        "CI promotes shift left in testing by encouraging developers to submit high quality code accompanied by component tests and static analysis.",
+        "Although DevOps comes with a high level of automated testing, manual testing – especially from the user's perspective – will still be needed."
+      ],
+      "tips": [
+        "Bẫy: 'DevOps loại bỏ hoàn toàn kiểm thử thủ công' là SAI. Phân biệt lợi ích (phản hồi nhanh, môi trường ổn định, giảm rủi ro hồi quy...) với rủi ro (phải dựng pipeline, duy trì công cụ CI/CD, automation tốn nguồn lực).",
+        "Lưu ý chữ 'giảm' (reduces) nhu cầu kiểm thử thủ công lặp lại chứ không phải 'loại bỏ'; rủi ro hồi quy được 'giảm thiểu' (minimized) chứ không phải 'triệt tiêu'."
+      ],
+      "terms": ["devops", "continuous integration", "continuous delivery", "shift left", "regression testing"]
+    },
+    {
+      "lo": "FL-2.1.5", "k": "K2",
+      "loEn": "Explain shift left",
+      "loVi": "Giải thích shift left (dịch chuyển kiểm thử sang trái)",
+      "sec": "2.1.5", "title": "Shift Left",
+      "titleVi": "Dịch chuyển sang trái (shift left)", "page": 27,
+      "summary": [
+        "Nguyên tắc kiểm thử sớm (early testing) đôi khi được gọi là shift left: kiểm thử được thực hiện sớm hơn trong SDLC (không chờ code được viết xong hay các thành phần được tích hợp), nhưng KHÔNG có nghĩa là bỏ qua kiểm thử ở giai đoạn sau.",
+        "5 thực hành tốt để đạt shift left: (1) review đặc tả (specification) dưới góc nhìn tester – thường tìm ra lỗi tiềm ẩn như mơ hồ, thiếu sót, mâu thuẫn; (2) viết test case trước khi viết code và cho code chạy trong test harness trong quá trình viết code; (3) dùng CI, và tốt hơn nữa là CD, vì có phản hồi nhanh và component test tự động đi kèm mã nguồn khi nộp lên kho mã; (4) hoàn thành phân tích tĩnh (static analysis) mã nguồn trước kiểm thử động, hoặc như một phần của quy trình tự động; (5) thực hiện kiểm thử phi chức năng bắt đầu từ cấp độ component test khi có thể.",
+        "Shift left có thể tốn thêm đào tạo, công sức và/hoặc chi phí ở giai đoạn đầu, nhưng được kỳ vọng sẽ tiết kiệm công sức/chi phí về sau.",
+        "Để shift left thành công, các bên liên quan (stakeholders) cần được thuyết phục và ủng hộ khái niệm này."
+      ],
+      "en": [
+        "Shift left basically suggests that testing should be done earlier, but it does not mean that testing later in the SDLC should be neglected.",
+        "Shift left might result in extra training, effort and/or costs earlier in the process but is expected to save efforts and/or costs later in the process.",
+        "For shift left it is important that stakeholders are convinced and bought into this concept."
+      ],
+      "tips": [
+        "Bẫy: 'shift left giảm chi phí ngay từ đầu' hoặc 'shift left thay thế kiểm thử giai đoạn sau' đều SAI. Đúng: tốn thêm lúc đầu, tiết kiệm về sau; vẫn giữ kiểm thử muộn.",
+        "Câu hỏi 'hoạt động nào là ví dụ shift left?' → review đặc tả, viết test trước code, CI/CD, static analysis trước dynamic test, test phi chức năng từ cấp component."
+      ],
+      "terms": ["shift left", "test harness", "continuous integration", "continuous delivery", "non-functional testing", "component testing"]
+    },
+    {
+      "lo": "FL-2.1.6", "k": "K2",
+      "loEn": "Explain how retrospectives can be used as a mechanism for process improvement",
+      "loVi": "Giải thích cách các buổi retrospective được dùng làm cơ chế cải tiến quy trình",
+      "sec": "2.1.6", "title": "Retrospectives and Process Improvement",
+      "titleVi": "Retrospective (họp nhìn lại) và cải tiến quy trình", "page": 28,
+      "summary": [
+        "Retrospective thường được tổ chức vào cuối dự án hoặc cuối vòng lặp (iteration), tại mốc phát hành (release milestone), hoặc khi cần. Thời điểm và cách tổ chức phụ thuộc mô hình SDLC đang theo.",
+        "Người tham gia không chỉ là tester mà còn developer, kiến trúc sư, product owner, business analyst... Họ thảo luận 3 câu hỏi: (1) Điều gì thành công và nên giữ lại? (2) Điều gì chưa thành công và có thể cải thiện? (3) Làm sao áp dụng cải tiến và duy trì thành công trong tương lai?",
+        "Kết quả cần được ghi lại và thường là một phần của báo cáo hoàn thành kiểm thử (test completion report).",
+        "Retrospective rất quan trọng để cải tiến liên tục (continuous improvement); cần theo dõi (follow up) việc thực hiện các cải tiến được đề xuất.",
+        "5 lợi ích điển hình cho kiểm thử: (1) tăng hiệu lực/hiệu suất kiểm thử (effectiveness/efficiency); (2) tăng chất lượng testware (vd cùng review quy trình kiểm thử); (3) gắn kết nhóm và học hỏi; (4) cải thiện chất lượng cơ sở kiểm thử (test basis) – vd thiếu sót trong yêu cầu được xử lý; (5) hợp tác tốt hơn giữa phát triển và kiểm thử."
+      ],
+      "en": [
+        "Retrospectives are often held at the end of a project or an iteration, at a release milestone, or can be held when needed.",
+        "The results should be recorded and are normally part of the test completion report.",
+        "Retrospectives are critical for the successful implementation of continuous improvement, and it is important that any recommended improvements are followed up."
+      ],
+      "tips": [
+        "Bẫy: retrospective KHÔNG chỉ dành cho tester, và KHÔNG nhằm tìm người có lỗi; mục đích là cải tiến quy trình.",
+        "Kết quả retrospective nằm trong test completion report (không phải test progress report hay test plan). Câu hỏi 'lợi ích nào của retrospective cho testing' → chọn ý cải thiện test basis, testware, hiệu quả, hợp tác dev-test, gắn kết nhóm."
+      ],
+      "terms": ["retrospective"]
+    },
+    {
+      "lo": "FL-2.2.1", "k": "K2",
+      "loEn": "Distinguish the different test levels",
+      "loVi": "Phân biệt các cấp độ kiểm thử khác nhau",
+      "sec": "2.2.1", "title": "Test Levels",
+      "titleVi": "Các cấp độ kiểm thử", "page": 28,
+      "summary": [
+        "Cấp độ kiểm thử (test level) là nhóm hoạt động kiểm thử được tổ chức và quản lý cùng nhau; mỗi cấp độ là một thể hiện (instance) của quy trình kiểm thử, gắn với phần mềm ở một giai đoạn phát triển. Trong mô hình tuần tự, tiêu chí kết thúc (exit criteria) của cấp này thường là một phần tiêu chí bắt đầu (entry criteria) của cấp sau; trong mô hình lặp có thể không như vậy; các cấp độ có thể chồng lấn thời gian.",
+        "Kiểm thử thành phần (component testing, còn gọi unit testing): kiểm thử thành phần một cách cô lập; thường cần hỗ trợ như test harness hoặc unit test framework; thường do developer làm trong môi trường phát triển.",
+        "Kiểm thử tích hợp thành phần (component integration testing, còn gọi unit integration testing): kiểm thử giao diện và tương tác giữa các thành phần; phụ thuộc nhiều vào chiến lược tích hợp: bottom-up, top-down, big-bang.",
+        "Kiểm thử hệ thống (system testing): kiểm thử hành vi và năng lực tổng thể của toàn bộ hệ thống/sản phẩm, thường gồm kiểm thử chức năng các tác vụ end-to-end và kiểm thử phi chức năng; một số đặc tính (vd usability) nên test trên hệ thống hoàn chỉnh trong môi trường đại diện; có thể dùng mô phỏng hệ thống con; có thể do nhóm kiểm thử độc lập thực hiện, dựa trên đặc tả hệ thống.",
+        "Kiểm thử tích hợp hệ thống (system integration testing): kiểm thử giao diện giữa hệ thống đang test với hệ thống khác và dịch vụ bên ngoài; cần môi trường kiểm thử phù hợp, tốt nhất giống môi trường vận hành.",
+        "Kiểm thử chấp nhận (acceptance testing): tập trung vào xác thực (validation) và chứng minh sẵn sàng triển khai, tức hệ thống đáp ứng nhu cầu nghiệp vụ người dùng; lý tưởng do người dùng dự kiến thực hiện. Các dạng chính: user acceptance testing (UAT), operational acceptance testing, contractual acceptance testing, regulatory acceptance testing, alpha testing, beta testing.",
+        "Các cấp độ được phân biệt theo các thuộc tính (danh sách không đầy đủ): đối tượng kiểm thử (test object), mục tiêu kiểm thử (test objectives), cơ sở kiểm thử (test basis), lỗi và hỏng hóc (defects and failures), cách tiếp cận và trách nhiệm (approach and responsibilities)."
+      ],
+      "en": [
+        "Component testing (also known as unit testing) focuses on testing components in isolation.",
+        "Component integration testing focuses on testing the interfaces and interactions between components.",
+        "System integration testing focuses on testing the interfaces of the system under test and other systems and external services.",
+        "Acceptance testing focuses on validation and on demonstrating readiness for deployment, which means that the system fulfills the user's business needs."
+      ],
+      "tips": [
+        "Phân biệt 2 loại tích hợp: giữa các component bên trong → component integration testing; giữa hệ thống với hệ thống khác/dịch vụ ngoài (vd cổng thanh toán, API bên thứ ba) → system integration testing.",
+        "Từ khóa nhận diện: 'in isolation', 'test harness', developer → component; 'end-to-end', hành vi toàn hệ thống, usability → system; 'validation', 'business needs', người dùng thực → acceptance."
+      ],
+      "terms": ["test level", "component testing", "component integration testing", "integration testing", "system testing", "system integration testing", "acceptance testing", "user acceptance testing", "operational acceptance testing", "contractual acceptance testing", "regulatory acceptance testing", "alpha testing", "beta testing", "test object", "test harness"]
+    },
+    {
+      "lo": "FL-2.2.2", "k": "K2",
+      "loEn": "Distinguish the different test types",
+      "loVi": "Phân biệt các loại kiểm thử khác nhau",
+      "sec": "2.2.2", "title": "Test Types",
+      "titleVi": "Các loại kiểm thử", "page": 29,
+      "summary": [
+        "Loại kiểm thử (test type) là nhóm hoạt động kiểm thử liên quan đến các đặc tính chất lượng cụ thể; phần lớn có thể thực hiện ở mọi cấp độ kiểm thử. Syllabus nêu 4 loại: functional, non-functional, black-box, white-box.",
+        "Kiểm thử chức năng (functional testing): đánh giá các chức năng mà component/hệ thống phải thực hiện – hệ thống làm 'cái gì' (what). Mục tiêu chính: kiểm tra tính đầy đủ chức năng (functional completeness), tính đúng đắn chức năng (functional correctness) và tính phù hợp chức năng (functional appropriateness).",
+        "Kiểm thử phi chức năng (non-functional testing): đánh giá các thuộc tính ngoài chức năng – hệ thống hoạt động 'tốt như thế nào' (how well). Theo ISO/IEC 25010 gồm 8 đặc tính: performance efficiency (hiệu năng), compatibility (tương thích), usability (khả dụng, còn gọi interaction capability), reliability (tin cậy), security (bảo mật), maintainability (bảo trì được), portability (di chuyển được, còn gọi flexibility), safety (an toàn).",
+        "Kiểm thử phi chức năng nên bắt đầu sớm khi phù hợp (vd trong review hoặc component testing); nhiều test phi chức năng được suy ra từ test chức năng (cùng chức năng nhưng kiểm tra ràng buộc phi chức năng, vd chạy trong thời gian quy định). Phát hiện muộn lỗi phi chức năng có thể đe dọa nghiêm trọng thành công dự án; đôi khi cần môi trường rất riêng (vd phòng lab usability).",
+        "Kiểm thử hộp đen (black-box testing): dựa trên đặc tả (specification-based), suy ra test từ tài liệu không liên quan cấu trúc bên trong; mục tiêu: kiểm tra hành vi hệ thống so với đặc tả.",
+        "Kiểm thử hộp trắng (white-box testing): dựa trên cấu trúc (structure-based), suy ra test từ cài đặt/cấu trúc bên trong (code, kiến trúc, luồng công việc, luồng dữ liệu); mục tiêu: bao phủ (cover) cấu trúc bên dưới đến mức chấp nhận được.",
+        "Cả 4 loại đều áp dụng được cho mọi cấp độ kiểm thử, chỉ khác trọng tâm ở mỗi cấp; có thể dùng nhiều kỹ thuật kiểm thử khác nhau để suy ra test condition và test case cho cả 4 loại."
+      ],
+      "en": [
+        "Functional testing evaluates the functions that a component or system should perform. The functions are \"what\" the test object should do.",
+        "Non-functional testing is the testing of \"how well the system behaves\".",
+        "Black-box testing is specification-based and derives tests from documentation not related to the internal structure of the test object.",
+        "All the four above mentioned test types can be applied to all test levels, although the focus will be different at each level."
+      ],
+      "tips": [
+        "Bẫy: 'white-box chỉ dùng ở component testing' hoặc 'non-functional chỉ làm ở system testing' đều SAI – cả 4 loại áp dụng cho mọi cấp độ.",
+        "Phân biệt: 'what' → functional; 'how well' (tốc độ, tải, bảo mật, dễ dùng) → non-functional. Test thời gian phản hồi của chức năng đăng nhập là non-functional (performance), dù dùng kịch bản chức năng."
+      ],
+      "terms": ["test type", "functional testing", "non-functional testing", "black-box testing", "white-box testing", "test level"]
+    },
+    {
+      "lo": "FL-2.2.3", "k": "K2",
+      "loEn": "Distinguish confirmation testing from regression testing",
+      "loVi": "Phân biệt kiểm thử xác nhận với kiểm thử hồi quy",
+      "sec": "2.2.3", "title": "Confirmation Testing and Regression Testing",
+      "titleVi": "Kiểm thử xác nhận và kiểm thử hồi quy", "page": 30,
+      "summary": [
+        "Thay đổi thường được thực hiện để nâng cấp (thêm tính năng mới) hoặc sửa lỗi; khi đó kiểm thử cần gồm cả kiểm thử xác nhận (confirmation testing) và kiểm thử hồi quy (regression testing).",
+        "Kiểm thử xác nhận: xác nhận lỗi gốc đã được sửa thành công. Tùy rủi ro, có thể: chạy lại tất cả test trước đó đã fail do lỗi đó, và/hoặc thêm test mới để bao phủ các thay đổi cần cho việc sửa lỗi. Nếu thiếu thời gian/tiền, có thể chỉ thực hiện lại các bước tái hiện failure và kiểm tra failure không còn xảy ra.",
+        "Kiểm thử hồi quy: xác nhận thay đổi (kể cả bản sửa đã qua confirmation test) không gây hậu quả bất lợi. Hậu quả có thể ở chính component được sửa, component khác trong cùng hệ thống, hoặc hệ thống kết nối khác; cũng có thể liên quan đến môi trường.",
+        "Nên làm phân tích tác động (impact analysis) trước để xác định phạm vi kiểm thử hồi quy; impact analysis cho biết phần nào của phần mềm có thể bị ảnh hưởng.",
+        "Bộ test hồi quy chạy nhiều lần và số lượng tăng dần qua mỗi vòng lặp/release, nên rất phù hợp để tự động hóa; tự động hóa nên bắt đầu sớm. Khi dùng CI (như trong DevOps), nên đưa test hồi quy tự động vào, có thể ở nhiều cấp độ.",
+        "Kiểm thử xác nhận và/hoặc hồi quy cần ở MỌI cấp độ kiểm thử nếu có sửa lỗi và/hoặc thay đổi ở cấp độ đó."
+      ],
+      "en": [
+        "Confirmation testing confirms that an original defect has been successfully fixed.",
+        "Regression testing confirms that no adverse consequences have been caused by a change, including a fix that has already been confirmation tested.",
+        "It is advisable first to perform an impact analysis to recognize the extent of the regression testing.",
+        "Regression testing is a strong candidate for automation."
+      ],
+      "tips": [
+        "Mẹo nhớ: confirmation = 'lỗi ĐÃ SỬA chưa?' (nhìn vào chỗ sửa); regression = 'có làm HỎNG chỗ khác không?' (nhìn ra xung quanh, kể cả hệ thống kết nối và môi trường).",
+        "Thứ tự hợp lý: confirmation test trước, sau đó regression test. Regression (không phải confirmation) là ứng viên mạnh cho tự động hóa và cần impact analysis để xác định phạm vi."
+      ],
+      "terms": ["confirmation testing", "regression testing", "impact analysis", "continuous integration", "devops"]
+    },
+    {
+      "lo": "FL-2.3.1", "k": "K2",
+      "loEn": "Summarize maintenance testing and its triggers",
+      "loVi": "Tóm tắt kiểm thử bảo trì và các tác nhân kích hoạt nó",
+      "sec": "2.3", "title": "Maintenance Testing",
+      "titleVi": "Kiểm thử bảo trì", "page": 31,
+      "summary": [
+        "Bảo trì có nhiều loại: sửa lỗi (corrective), thích ứng với thay đổi môi trường (adaptive), hoặc cải thiện hiệu năng/khả năng bảo trì (xem ISO/IEC 14764); có thể là phát hành theo kế hoạch hoặc ngoài kế hoạch (hot fix).",
+        "Có thể làm phân tích tác động (impact analysis) TRƯỚC khi thay đổi, để giúp quyết định có nên thay đổi không, dựa trên hậu quả tiềm ẩn ở các phần khác của hệ thống.",
+        "Kiểm thử thay đổi trên hệ thống đang vận hành gồm cả đánh giá việc triển khai thay đổi có thành công không VÀ kiểm tra hồi quy ở các phần không thay đổi (thường là phần lớn hệ thống).",
+        "Phạm vi kiểm thử bảo trì thường phụ thuộc 3 yếu tố: (1) mức độ rủi ro của thay đổi; (2) kích thước hệ thống hiện có; (3) kích thước thay đổi.",
+        "3 nhóm tác nhân kích hoạt (triggers): (1) Sửa đổi (modifications) – nâng cấp theo kế hoạch (release-based), thay đổi sửa lỗi, hot fix; (2) Nâng cấp hoặc di chuyển (upgrades or migrations) môi trường vận hành – vd từ nền tảng này sang nền tảng khác, cần test môi trường mới và phần mềm đã thay đổi, hoặc test chuyển đổi dữ liệu (data conversion) khi di chuyển dữ liệu từ ứng dụng khác; (3) Ngừng sử dụng (retirement) – khi ứng dụng hết vòng đời, có thể cần test lưu trữ dữ liệu (data archiving) nếu yêu cầu lưu lâu, và test thủ tục khôi phục/truy xuất (restore and retrieval) sau khi lưu trữ."
+      ],
+      "en": [
+        "Impact analysis may be done before a change is made, to help decide if the change should be made, based on the potential consequences in other areas of the system.",
+        "The scope of maintenance testing typically depends on the degree of risk of the change, the size of the existing system and the size of the change.",
+        "When a system is retired, this can require testing of data archiving if long data retention periods are required."
+      ],
+      "tips": [
+        "Ba trigger cần thuộc: modifications, upgrades/migrations, retirement. Bẫy: phát triển tính năng cho sản phẩm CHƯA phát hành không phải maintenance testing; maintenance testing áp dụng cho hệ thống đang vận hành.",
+        "Retirement → test data archiving, restore/retrieval; migration → test data conversion và môi trường mới. Phạm vi phụ thuộc rủi ro + kích thước hệ thống + kích thước thay đổi (không phải số lượng tester hay ngân sách)."
+      ],
+      "terms": ["maintenance testing", "impact analysis", "regression testing"]
+    }
+  ],
+  "glossary": [
+    { "en": "acceptance testing", "vi": "kiểm thử chấp nhận", "def": "Cấp độ kiểm thử tập trung vào xác thực (validation) và chứng minh hệ thống sẵn sàng triển khai, tức đáp ứng nhu cầu nghiệp vụ của người dùng; lý tưởng do người dùng dự kiến thực hiện.", "kw": true },
+    { "en": "black-box testing", "vi": "kiểm thử hộp đen", "def": "Loại kiểm thử dựa trên đặc tả, suy ra test từ tài liệu không liên quan đến cấu trúc bên trong của đối tượng kiểm thử; mục tiêu là kiểm tra hành vi hệ thống so với đặc tả.", "kw": true },
+    { "en": "component integration testing", "vi": "kiểm thử tích hợp thành phần", "def": "Cấp độ kiểm thử tập trung vào giao diện và tương tác giữa các thành phần (còn gọi unit integration testing); phụ thuộc nhiều vào chiến lược tích hợp như bottom-up, top-down, big-bang.", "kw": true },
+    { "en": "component testing", "vi": "kiểm thử thành phần", "def": "Cấp độ kiểm thử tập trung vào từng thành phần một cách cô lập (còn gọi unit testing); thường cần test harness hoặc unit test framework và thường do developer thực hiện.", "kw": true },
+    { "en": "confirmation testing", "vi": "kiểm thử xác nhận", "def": "Kiểm thử nhằm xác nhận rằng lỗi gốc đã được sửa thành công, vd chạy lại các test từng fail do lỗi đó hoặc thêm test mới cho phần sửa.", "kw": true },
+    { "en": "functional testing", "vi": "kiểm thử chức năng", "def": "Kiểm thử đánh giá các chức năng mà thành phần hoặc hệ thống phải thực hiện ('cái gì'); kiểm tra tính đầy đủ, đúng đắn và phù hợp của chức năng.", "kw": true },
+    { "en": "integration testing", "vi": "kiểm thử tích hợp", "def": "Kiểm thử tập trung vào giao diện và tương tác giữa các thành phần hoặc hệ thống; gồm hai cấp độ: component integration testing và system integration testing.", "kw": true },
+    { "en": "maintenance testing", "vi": "kiểm thử bảo trì", "def": "Kiểm thử các thay đổi trên hệ thống đang vận hành, gồm đánh giá việc triển khai thay đổi và kiểm tra hồi quy; được kích hoạt bởi sửa đổi, nâng cấp/di chuyển môi trường, hoặc ngừng sử dụng hệ thống.", "kw": true },
+    { "en": "non-functional testing", "vi": "kiểm thử phi chức năng", "def": "Kiểm thử đánh giá các thuộc tính ngoài chức năng – hệ thống hoạt động 'tốt như thế nào', vd hiệu năng, tương thích, khả dụng, tin cậy, bảo mật, bảo trì, di chuyển, an toàn (ISO/IEC 25010).", "kw": true },
+    { "en": "regression testing", "vi": "kiểm thử hồi quy", "def": "Kiểm thử xác nhận rằng một thay đổi (kể cả bản sửa lỗi) không gây hậu quả bất lợi cho chính thành phần đó, thành phần khác, hệ thống kết nối hoặc môi trường; là ứng viên mạnh cho tự động hóa.", "kw": true },
+    { "en": "shift left", "vi": "dịch chuyển sang trái", "def": "Cách tiếp cận thực hiện kiểm thử sớm hơn trong SDLC (nguyên tắc early testing), nhưng không bỏ qua kiểm thử ở giai đoạn sau; tốn thêm chi phí lúc đầu nhưng tiết kiệm về sau.", "kw": true },
+    { "en": "system integration testing", "vi": "kiểm thử tích hợp hệ thống", "def": "Cấp độ kiểm thử tập trung vào giao diện giữa hệ thống đang kiểm thử với các hệ thống khác và dịch vụ bên ngoài; cần môi trường kiểm thử gần giống môi trường vận hành.", "kw": true },
+    { "en": "system testing", "vi": "kiểm thử hệ thống", "def": "Cấp độ kiểm thử tập trung vào hành vi và năng lực tổng thể của toàn bộ hệ thống/sản phẩm, gồm kiểm thử chức năng end-to-end và kiểm thử phi chức năng; có thể do nhóm kiểm thử độc lập thực hiện.", "kw": true },
+    { "en": "test level", "vi": "cấp độ kiểm thử", "def": "Nhóm hoạt động kiểm thử được tổ chức và quản lý cùng nhau, là một thể hiện của quy trình kiểm thử cho phần mềm ở một giai đoạn phát triển (component, component integration, system, system integration, acceptance).", "kw": true },
+    { "en": "test object", "vi": "đối tượng kiểm thử", "def": "Sản phẩm công việc hoặc phần mềm được kiểm thử; là một trong các thuộc tính dùng để phân biệt các cấp độ kiểm thử.", "kw": true },
+    { "en": "test type", "vi": "loại kiểm thử", "def": "Nhóm hoạt động kiểm thử liên quan đến các đặc tính chất lượng cụ thể, phần lớn có thể thực hiện ở mọi cấp độ kiểm thử (vd functional, non-functional, black-box, white-box).", "kw": true },
+    { "en": "white-box testing", "vi": "kiểm thử hộp trắng", "def": "Loại kiểm thử dựa trên cấu trúc, suy ra test từ cài đặt hoặc cấu trúc bên trong (code, kiến trúc, luồng công việc, luồng dữ liệu); mục tiêu là bao phủ cấu trúc đến mức chấp nhận được.", "kw": true },
+    { "en": "software development lifecycle", "vi": "vòng đời phát triển phần mềm (SDLC)", "def": "Quy trình phát triển phần mềm; mô hình SDLC là biểu diễn trừu tượng, mức cao định nghĩa quan hệ logic và thời gian giữa các giai đoạn và hoạt động (vd waterfall, V-model, spiral, Unified Process).", "kw": false },
+    { "en": "test-driven development", "vi": "phát triển hướng kiểm thử (TDD)", "def": "Cách tiếp cận dẫn dắt việc viết code bằng test case: viết test trước, viết code để thỏa test, rồi refactor cả test và code.", "kw": false },
+    { "en": "behavior-driven development", "vi": "phát triển hướng hành vi (BDD)", "def": "Cách tiếp cận diễn đạt hành vi mong muốn bằng test case viết ở ngôn ngữ tự nhiên đơn giản (thường dạng Given/When/Then), dễ hiểu với stakeholder, sau đó được chuyển tự động thành test thực thi được.", "kw": false },
+    { "en": "devops", "vi": "DevOps", "def": "Cách tiếp cận tổ chức đưa phát triển (gồm kiểm thử) và vận hành cùng làm việc vì mục tiêu chung; thúc đẩy tự chủ nhóm, phản hồi nhanh, chuỗi công cụ tích hợp và CI/CD.", "kw": false },
+    { "en": "continuous integration", "vi": "tích hợp liên tục (CI)", "def": "Thực hành tích hợp và kiểm tra code thường xuyên một cách tự động; khuyến khích developer nộp code kèm component test và phân tích tĩnh, thúc đẩy shift left.", "kw": false },
+    { "en": "continuous delivery", "vi": "chuyển giao liên tục (CD)", "def": "Thực hành tự động hóa qua delivery pipeline để có thể build, test và phát hành phần mềm nhanh, thường xuyên; mang lại phản hồi nhanh.", "kw": false },
+    { "en": "retrospective", "vi": "họp nhìn lại (retrospective)", "def": "Buổi họp (cuối dự án, cuối iteration, mốc release hoặc khi cần) để thảo luận điều gì thành công, điều gì cần cải thiện và cách áp dụng cải tiến; kết quả thường nằm trong test completion report.", "kw": false },
+    { "en": "user acceptance testing", "vi": "kiểm thử chấp nhận người dùng (UAT)", "def": "Dạng kiểm thử chấp nhận do người dùng dự kiến thực hiện, nhằm xác thực hệ thống đáp ứng nhu cầu nghiệp vụ của họ.", "kw": false },
+    { "en": "operational acceptance testing", "vi": "kiểm thử chấp nhận vận hành", "def": "Dạng kiểm thử chấp nhận tập trung vào việc hệ thống sẵn sàng cho vận hành trong môi trường vận hành (thường do bộ phận vận hành/quản trị hệ thống thực hiện).", "kw": false },
+    { "en": "contractual acceptance testing", "vi": "kiểm thử chấp nhận theo hợp đồng", "def": "Dạng kiểm thử chấp nhận kiểm tra hệ thống so với các tiêu chí chấp nhận đã ghi trong hợp đồng.", "kw": false },
+    { "en": "regulatory acceptance testing", "vi": "kiểm thử chấp nhận theo quy định", "def": "Dạng kiểm thử chấp nhận kiểm tra hệ thống tuân thủ luật, quy định hoặc tiêu chuẩn bắt buộc (vd của cơ quan nhà nước, an toàn).", "kw": false },
+    { "en": "alpha testing", "vi": "kiểm thử alpha", "def": "Dạng kiểm thử chấp nhận do người dùng/khách hàng tiềm năng thực hiện tại địa điểm của tổ chức phát triển.", "kw": false },
+    { "en": "beta testing", "vi": "kiểm thử beta", "def": "Dạng kiểm thử chấp nhận do người dùng/khách hàng tiềm năng thực hiện tại địa điểm của chính họ, trước khi phát hành rộng rãi.", "kw": false },
+    { "en": "impact analysis", "vi": "phân tích tác động", "def": "Phân tích xác định những phần nào của phần mềm có thể bị ảnh hưởng bởi một thay đổi; dùng để xác định phạm vi kiểm thử hồi quy và giúp quyết định có nên thực hiện thay đổi trong bảo trì.", "kw": false },
+    { "en": "test harness", "vi": "khung chạy kiểm thử (test harness)", "def": "Môi trường hỗ trợ gồm stub, driver và công cụ cần để chạy test cho thành phần một cách cô lập; thường dùng trong component testing.", "kw": false }
+  ]
+}

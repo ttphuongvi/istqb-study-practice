@@ -1,0 +1,268 @@
+{
+  "chapter": {
+    "id": 3,
+    "en": "Static Testing",
+    "vi": "Kiểm thử tĩnh",
+    "intro": "Chương này giới thiệu kiểm thử tĩnh (static testing): đánh giá sản phẩm công việc mà không cần chạy phần mềm, bằng review thủ công hoặc phân tích tĩnh bằng công cụ. Trọng tâm thi là giá trị của kiểm thử tĩnh, so sánh tĩnh – động, 5 hoạt động của quy trình review, 6 vai trò chính và 4 loại review (informal, walkthrough, technical review, inspection). Đây là chương ngắn nhưng câu hỏi thường rất 'nguyên văn', dễ ghi điểm nếu nhớ đúng danh sách."
+  },
+  "units": [
+    {
+      "lo": "FL-3.1.1",
+      "k": "K1",
+      "loEn": "Recognize types of work products that can be examined by static testing",
+      "loVi": "Nhận biết các loại sản phẩm công việc có thể được kiểm tra bằng kiểm thử tĩnh",
+      "sec": "3.1.1",
+      "title": "Work Products Examinable by Static Testing",
+      "titleVi": "Các sản phẩm công việc có thể kiểm tra bằng kiểm thử tĩnh",
+      "page": 33,
+      "summary": [
+        "Kiểm thử tĩnh (static testing) KHÔNG cần thực thi phần mềm; sản phẩm được đánh giá bằng kiểm tra thủ công (review) hoặc bằng công cụ (phân tích tĩnh – static analysis). Mục tiêu: nâng cao chất lượng, phát hiện lỗi, đánh giá tính dễ đọc, đầy đủ, đúng đắn, khả kiểm thử (testability), nhất quán; áp dụng được cho cả verification và validation.",
+        "Hầu như mọi sản phẩm công việc (work product) đều có thể kiểm thử tĩnh. Ví dụ: tài liệu đặc tả yêu cầu, mã nguồn (source code), kế hoạch kiểm thử (test plan), test case, hạng mục product backlog, test charter, tài liệu dự án, hợp đồng (contract) và mô hình (model).",
+        "Review: bất kỳ sản phẩm nào có thể ĐỌC và HIỂU được đều có thể được review.",
+        "Phân tích tĩnh (static analysis): sản phẩm cần có CẤU TRÚC để công cụ kiểm tra được (vd mô hình, code, hoặc văn bản có cú pháp hình thức – formal syntax).",
+        "KHÔNG phù hợp cho kiểm thử tĩnh: sản phẩm khó để con người diễn giải và không nên phân tích bằng công cụ, vd mã thực thi của bên thứ ba (3rd party executable code) vì lý do pháp lý.",
+        "Tester, đại diện nghiệp vụ (Product Owner, business analyst) và developer cùng làm example mapping, viết user story cộng tác, backlog refinement để user story đạt tiêu chí như Definition of Ready, đầy đủ, dễ hiểu và có tiêu chí chấp nhận kiểm thử được.",
+        "Phân tích tĩnh phát hiện vấn đề trước kiểm thử động, thường tốn ít công hơn (không cần test case, dùng công cụ), hay được tích hợp vào CI; dùng để tìm lỗi code, đánh giá maintainability và security; trình kiểm tra chính tả và công cụ đo độ dễ đọc cũng là công cụ phân tích tĩnh."
+      ],
+      "en": [
+        "In contrast to dynamic testing, in static testing the software under test does not need to be executed.",
+        "Almost any work product can be examined using static testing.",
+        "Any work product that can be read and understood can be the subject of a review. However, for static analysis, work products need a structure against which they can be checked.",
+        "Work products that are not appropriate for static testing include those that are difficult to interpret by human beings and that should not be analyzed by tools (e.g., 3rd party executable code due to legal reasons)."
+      ],
+      "tips": [
+        "Câu hỏi kiểu 'sản phẩm nào KHÔNG thể kiểm thử tĩnh?' → đáp án thường là mã thực thi bên thứ ba (third-party executable code) vì lý do pháp lý. Test plan, test case, hợp đồng, backlog item, mô hình... đều kiểm thử tĩnh được.",
+        "Phân biệt: review chỉ cần 'đọc hiểu được'; static analysis cần 'có cấu trúc/cú pháp hình thức'."
+      ],
+      "terms": ["static testing", "static analysis", "review", "dynamic testing"]
+    },
+    {
+      "lo": "FL-3.1.2",
+      "k": "K2",
+      "loEn": "Explain the value of static testing",
+      "loVi": "Giải thích giá trị của kiểm thử tĩnh",
+      "sec": "3.1.2",
+      "title": "Value of Static Testing",
+      "titleVi": "Giá trị của kiểm thử tĩnh",
+      "page": 33,
+      "summary": [
+        "Phát hiện lỗi ở các giai đoạn SỚM NHẤT của SDLC, thực hiện nguyên tắc kiểm thử sớm (early testing).",
+        "Tìm được những lỗi mà kiểm thử động (dynamic testing) KHÔNG phát hiện được: mã không thể chạy tới (unreachable code), design pattern không được hiện thực đúng như mong muốn, lỗi trong sản phẩm không thực thi được (non-executable work products).",
+        "Giúp đánh giá chất lượng và xây dựng sự tin tưởng (confidence) vào sản phẩm công việc; khi xác minh yêu cầu đã ghi lại, stakeholder đảm bảo yêu cầu phản ánh đúng nhu cầu thực tế.",
+        "Vì làm sớm nên tạo ra sự hiểu biết chung (shared understanding) giữa các stakeholder và cải thiện giao tiếp → khuyến nghị lôi kéo nhiều loại stakeholder tham gia kiểm thử tĩnh.",
+        "Chi phí: review có thể tốn kém khi triển khai, nhưng TỔNG chi phí dự án thường thấp hơn nhiều so với không review, vì giảm thời gian và công sức sửa lỗi về sau.",
+        "Một số lỗi code được phân tích tĩnh phát hiện hiệu quả hơn kiểm thử động, thường dẫn tới ít lỗi code hơn và tổng công sức phát triển thấp hơn."
+      ],
+      "en": [
+        "Static testing can detect defects in the earliest phases of the SDLC, fulfilling the principle of early testing.",
+        "It can also identify defects which cannot be detected by dynamic testing (e.g., unreachable code, design patterns not implemented as desired, defects in non-executable work products).",
+        "Even though reviews can be costly to implement, the overall project costs are usually much lower than when no reviews are performed.",
+        "Since static testing can be performed early in the SDLC, a shared understanding can be created among the involved stakeholders."
+      ],
+      "tips": [
+        "Bẫy: 'review làm tăng tổng chi phí dự án' là SAI — review có chi phí riêng nhưng tổng chi phí dự án thường giảm.",
+        "Ví dụ 'unreachable code' là lỗi kiểm thử động không thể tìm thấy (vì không bao giờ được thực thi) — dấu hiệu nhận ra giá trị riêng của kiểm thử tĩnh."
+      ],
+      "terms": ["static testing", "dynamic testing", "unreachable code"]
+    },
+    {
+      "lo": "FL-3.1.3",
+      "k": "K2",
+      "loEn": "Compare and contrast static testing and dynamic testing",
+      "loVi": "So sánh và đối chiếu kiểm thử tĩnh và kiểm thử động",
+      "sec": "3.1.3",
+      "title": "Differences between Static Testing and Dynamic Testing",
+      "titleVi": "Khác biệt giữa kiểm thử tĩnh và kiểm thử động",
+      "page": 34,
+      "summary": [
+        "Kiểm thử tĩnh và động BỔ SUNG cho nhau, có mục tiêu tương tự (hỗ trợ phát hiện lỗi), nhưng có một số loại lỗi chỉ tìm được bằng một trong hai cách.",
+        "Tĩnh tìm LỖI (defect) TRỰC TIẾP; động gây ra THẤT BẠI (failure), từ đó mới phân tích để xác định lỗi liên quan.",
+        "Tĩnh dễ phát hiện lỗi nằm trên các đường code hiếm khi được thực thi hoặc khó tiếp cận bằng kiểm thử động.",
+        "Tĩnh áp dụng được cho sản phẩm KHÔNG thực thi được; động chỉ áp dụng cho sản phẩm thực thi được.",
+        "Tĩnh đo các đặc tính chất lượng không phụ thuộc việc chạy code (vd khả năng bảo trì – maintainability); động đo đặc tính phụ thuộc việc chạy code (vd hiệu năng – performance efficiency).",
+        "Các lỗi dễ/rẻ tìm hơn bằng kiểm thử tĩnh (7 nhóm): (1) lỗi yêu cầu – không nhất quán, mơ hồ, mâu thuẫn, thiếu sót, không chính xác, trùng lặp; (2) lỗi thiết kế – cấu trúc CSDL kém hiệu quả, phân module kém; (3) một số lỗi code – biến có giá trị chưa xác định, biến chưa khai báo, code không chạy tới hoặc trùng lặp, độ phức tạp code quá cao; (4) sai lệch so với tiêu chuẩn – không tuân thủ quy ước đặt tên; (5) đặc tả giao diện sai – lệch số lượng, kiểu, thứ tự tham số; (6) một số lỗ hổng bảo mật – tràn bộ đệm (buffer overflow); (7) khoảng trống/sai sót trong độ bao phủ cơ sở kiểm thử – thiếu test cho một tiêu chí chấp nhận."
+      ],
+      "en": [
+        "Static testing finds defects directly, while dynamic testing causes failures from which the associated defects are determined through subsequent analysis.",
+        "Static testing can be applied to non-executable work products, while dynamic testing can only be applied to executable work products.",
+        "Static testing can be used to measure quality characteristics that are not dependent on executing code (e.g., maintainability).",
+        "Static testing may more easily detect defects that lay on paths through the code that are rarely executed or hard to reach using dynamic testing."
+      ],
+      "tips": [
+        "Nhớ cặp: tĩnh → defect trực tiếp, maintainability; động → failure rồi phân tích, performance efficiency. Đề hay hỏi 'đặc tính nào chỉ đo được bằng kiểm thử động' → hiệu năng.",
+        "Lỗi kiểu memory leak, thời gian phản hồi chậm thường cần kiểm thử động; còn buffer overflow, biến chưa khai báo, vi phạm quy ước đặt tên, sai thứ tự tham số giao diện là ví dụ điển hình của kiểm thử tĩnh."
+      ],
+      "terms": ["static testing", "dynamic testing", "static analysis", "unreachable code"]
+    },
+    {
+      "lo": "FL-3.2.1",
+      "k": "K1",
+      "loEn": "Identify the benefits of early and frequent stakeholder feedback",
+      "loVi": "Xác định lợi ích của phản hồi sớm và thường xuyên từ các bên liên quan",
+      "sec": "3.2.1",
+      "title": "Benefits of Early and Frequent Stakeholder Feedback",
+      "titleVi": "Lợi ích của phản hồi sớm và thường xuyên từ các bên liên quan",
+      "page": 35,
+      "summary": [
+        "Phản hồi sớm và thường xuyên cho phép truyền đạt SỚM các vấn đề chất lượng tiềm ẩn.",
+        "Nếu stakeholder ít tham gia trong SDLC, sản phẩm có thể không đáp ứng tầm nhìn ban đầu hoặc hiện tại của họ.",
+        "Hậu quả khi không giao đúng thứ stakeholder muốn: làm lại tốn kém (costly rework), trễ hạn (missed deadlines), đổ lỗi lẫn nhau (blame games), thậm chí dự án thất bại hoàn toàn.",
+        "Phản hồi thường xuyên giúp ngăn hiểu sai yêu cầu và đảm bảo thay đổi yêu cầu được hiểu và hiện thực sớm hơn.",
+        "Giúp đội phát triển hiểu rõ hơn họ đang xây dựng gì, và tập trung vào các tính năng mang lại GIÁ TRỊ cao nhất cho stakeholder và có tác động tích cực nhất đến các rủi ro đã nhận diện."
+      ],
+      "en": [
+        "Early and frequent feedback allows for the early communication of potential quality problems.",
+        "A failure to deliver what the stakeholder wants can result in costly rework, missed deadlines, blame games, and might even lead to complete project failure.",
+        "Frequent stakeholder feedback throughout the SDLC can prevent misunderstandings about requirements and ensure that changes to requirements are understood and implemented earlier."
+      ],
+      "tips": [
+        "Đáp án đúng thường xoay quanh: phát hiện sớm vấn đề chất lượng, tránh hiểu sai yêu cầu, tập trung vào tính năng giá trị nhất. Phương án kiểu 'giảm nhu cầu kiểm thử động' hay 'loại bỏ hoàn toàn thay đổi yêu cầu' là bẫy.",
+        "Phản hồi không ngăn thay đổi yêu cầu — nó giúp thay đổi được HIỂU và HIỆN THỰC sớm hơn."
+      ],
+      "terms": ["stakeholder feedback"]
+    },
+    {
+      "lo": "FL-3.2.2",
+      "k": "K2",
+      "loEn": "Summarize the activities of the review process",
+      "loVi": "Tóm tắt các hoạt động của quy trình review",
+      "sec": "3.2.2",
+      "title": "Review Process Activities",
+      "titleVi": "Các hoạt động của quy trình review",
+      "page": 35,
+      "summary": [
+        "Chuẩn ISO/IEC 20246 định nghĩa quy trình review chung, có cấu trúc nhưng linh hoạt, có thể điều chỉnh (tailor). Review càng hình thức thì càng cần nhiều tác vụ hơn. Sản phẩm lớn có thể review nhiều lần để phủ hết.",
+        "(1) Lập kế hoạch (Planning): xác định phạm vi review gồm mục đích, sản phẩm được review, đặc tính chất lượng cần đánh giá, khu vực tập trung, tiêu chí kết thúc (exit criteria), thông tin hỗ trợ như tiêu chuẩn, công sức và khung thời gian.",
+        "(2) Khởi động review (Review initiation): đảm bảo mọi người và mọi thứ sẵn sàng — mỗi người tham gia truy cập được sản phẩm, hiểu vai trò/trách nhiệm và nhận đủ những gì cần thiết.",
+        "(3) Review cá nhân (Individual review): mỗi reviewer tự đánh giá chất lượng, xác định bất thường (anomaly), đề xuất và câu hỏi bằng một hoặc nhiều kỹ thuật review (vd checklist-based, scenario-based reviewing); ghi lại tất cả.",
+        "(4) Trao đổi và phân tích (Communication and analysis): anomaly chưa chắc là defect nên phải phân tích, thảo luận; quyết định trạng thái, người phụ trách và hành động cho từng anomaly; thường làm trong cuộc họp review (review meeting), đồng thời quyết định mức chất lượng sản phẩm và hành động tiếp theo; có thể cần review tiếp theo (follow-up).",
+        "(5) Sửa và báo cáo (Fixing and reporting): tạo defect report cho mỗi lỗi để theo dõi hành động khắc phục; khi đạt exit criteria thì chấp nhận sản phẩm; báo cáo kết quả review."
+      ],
+      "en": [
+        "The ISO/IEC 20246 standard defines a generic review process that provides a structured but flexible framework from which a specific review process may be tailored to a particular situation.",
+        "Every reviewer performs an individual review to assess the quality of the work product under review, and to identify anomalies, recommendations, and questions by applying one or more review techniques.",
+        "Since the anomalies identified during a review are not necessarily defects, all these anomalies need to be analyzed and discussed.",
+        "For every defect, a defect report should be created so that corrective actions can be followed up. Once the exit criteria are reached, the work product can be accepted."
+      ],
+      "tips": [
+        "Thuộc thứ tự 5 bước: Planning → Review initiation → Individual review → Communication and analysis → Fixing and reporting. Đề hay đưa 1 tác vụ và hỏi thuộc bước nào: 'xác định exit criteria/phạm vi' = Planning; 'đảm bảo người tham gia có quyền truy cập sản phẩm' = Initiation; 'quyết định trạng thái/chủ sở hữu anomaly' = Communication and analysis.",
+        "Bẫy: anomaly ≠ defect. Anomaly chỉ thành defect sau khi được phân tích ở bước Communication and analysis."
+      ],
+      "terms": ["review", "anomaly", "individual review", "review meeting", "checklist-based reviewing", "scenario-based reviewing", "iso/iec 20246"]
+    },
+    {
+      "lo": "FL-3.2.3",
+      "k": "K1",
+      "loEn": "Recall which responsibilities are assigned to the principal roles when performing reviews",
+      "loVi": "Nhớ lại các trách nhiệm được giao cho các vai trò chính khi thực hiện review",
+      "sec": "3.2.3",
+      "title": "Roles and Responsibilities in Reviews",
+      "titleVi": "Vai trò và trách nhiệm trong review",
+      "page": 36,
+      "summary": [
+        "Quản lý (Manager): quyết định CÁI GÌ được review và cung cấp nguồn lực (nhân sự, thời gian) cho review.",
+        "Tác giả (Author): TẠO và SỬA sản phẩm được review.",
+        "Người điều phối (Moderator, còn gọi là facilitator): đảm bảo cuộc họp review diễn ra hiệu quả — hòa giải (mediation), quản lý thời gian, tạo môi trường an toàn để mọi người phát biểu tự do.",
+        "Thư ký (Scribe, còn gọi là recorder): tổng hợp anomaly từ các reviewer và ghi lại thông tin review như quyết định và anomaly mới phát hiện trong cuộc họp.",
+        "Người review (Reviewer): thực hiện review; có thể là người trong dự án, chuyên gia lĩnh vực (subject matter expert) hoặc bất kỳ stakeholder nào.",
+        "Trưởng nhóm review (Review leader): chịu trách nhiệm TỔNG THỂ về review — quyết định ai tham gia, tổ chức khi nào và ở đâu.",
+        "Một người có thể đảm nhận nhiều vai trò; ISO/IEC 20246 mô tả thêm các vai trò chi tiết hơn."
+      ],
+      "en": [
+        "Manager – decides what is to be reviewed and provides resources, such as staff and time for the review",
+        "Moderator (also known as the facilitator) – ensures the effective running of review meetings, including mediation, time management, and a safe review environment in which everyone can speak freely",
+        "Scribe (also known as recorder) – collates anomalies from reviewers and records review information, such as decisions and new anomalies found during the review meeting",
+        "Review leader – takes overall responsibility for the review such as deciding who will be involved, and organizing when and where the review will take place"
+      ],
+      "tips": [
+        "Dễ nhầm nhất: Manager (quyết định review CÁI GÌ + cấp nguồn lực) vs Review leader (quyết định AI tham gia, KHI NÀO, Ở ĐÂU) vs Moderator (điều hành cuộc họp, hòa giải, quản lý thời gian).",
+        "Ghi nhớ tên gọi khác: moderator = facilitator, scribe = recorder."
+      ],
+      "terms": ["review", "manager", "author", "moderator", "scribe", "reviewer", "review leader"]
+    },
+    {
+      "lo": "FL-3.2.4",
+      "k": "K2",
+      "loEn": "Compare and contrast the different review types",
+      "loVi": "So sánh và đối chiếu các loại review khác nhau",
+      "sec": "3.2.4",
+      "title": "Review Types",
+      "titleVi": "Các loại review",
+      "page": 36,
+      "summary": [
+        "Mức hình thức cần thiết phụ thuộc: SDLC đang dùng, độ trưởng thành của quy trình phát triển, mức độ quan trọng và phức tạp của sản phẩm, yêu cầu pháp lý/quy định, nhu cầu lưu vết kiểm toán (audit trail). Cùng một sản phẩm có thể review bằng nhiều loại, vd informal trước rồi formal sau.",
+        "Chọn loại review dựa vào mục tiêu và các yếu tố như nhu cầu dự án, nguồn lực sẵn có, loại sản phẩm và rủi ro, lĩnh vực kinh doanh, văn hóa công ty.",
+        "Review không chính thức (Informal review): không theo quy trình xác định, không yêu cầu đầu ra tài liệu hình thức; mục tiêu chính là phát hiện anomaly.",
+        "Walkthrough: do TÁC GIẢ dẫn dắt; nhiều mục tiêu: đánh giá chất lượng và xây dựng tin tưởng, ĐÀO TẠO reviewer, đạt đồng thuận, tạo ý tưởng mới, thúc đẩy tác giả cải thiện, phát hiện anomaly. Review cá nhân trước walkthrough là KHÔNG bắt buộc.",
+        "Technical review: do reviewer có chuyên môn kỹ thuật thực hiện, do MODERATOR dẫn dắt; mục tiêu: đạt đồng thuận và RA QUYẾT ĐỊNH về vấn đề kỹ thuật, ngoài ra phát hiện anomaly, đánh giá chất lượng, xây dựng tin tưởng, tạo ý tưởng mới, thúc đẩy tác giả cải thiện.",
+        "Inspection: loại HÌNH THỨC NHẤT, theo đầy đủ quy trình chung (3.2.2); mục tiêu chính là tìm SỐ LƯỢNG anomaly TỐI ĐA; ngoài ra đánh giá chất lượng, xây dựng tin tưởng, thúc đẩy tác giả cải thiện. Thu thập METRICS để cải tiến SDLC và quy trình inspection. Tác giả KHÔNG được làm review leader hay scribe."
+      ],
+      "en": [
+        "Informal reviews do not follow a defined process and do not require a formal documented output. The main objective is detecting anomalies.",
+        "A walkthrough, which is led by the author, can serve many objectives, such as evaluating quality and building confidence in the work product, educating reviewers, gaining consensus, generating new ideas.",
+        "A technical review is performed by technically qualified reviewers and led by a moderator. The objectives of a technical review are to gain consensus and make decisions regarding a technical problem.",
+        "As inspections are the most formal type of review, they follow the complete generic process. In inspections, the author cannot act as the review leader or scribe."
+      ],
+      "tips": [
+        "Từ khóa nhận diện: 'tác giả dẫn dắt / đào tạo người review' → Walkthrough; 'chuyên gia kỹ thuật, ra quyết định về vấn đề kỹ thuật' → Technical review; 'quy trình đầy đủ, metrics, tìm tối đa anomaly, tác giả không được làm leader/scribe' → Inspection; 'không quy trình, không tài liệu' → Informal review.",
+        "Bẫy: 'Walkthrough bắt buộc review cá nhân trước' là SAI. 'Inspection do tác giả làm review leader' là SAI."
+      ],
+      "terms": ["informal review", "formal review", "walkthrough", "technical review", "inspection", "anomaly", "audit trail"]
+    },
+    {
+      "lo": "FL-3.2.5",
+      "k": "K1",
+      "loEn": "Recall the factors that contribute to a successful review",
+      "loVi": "Nhớ lại các yếu tố góp phần vào một buổi review thành công",
+      "sec": "3.2.5",
+      "title": "Success Factors for Reviews",
+      "titleVi": "Các yếu tố thành công của review",
+      "page": 37,
+      "summary": [
+        "Xác định mục tiêu rõ ràng và tiêu chí kết thúc (exit criteria) đo lường được. Đánh giá người tham gia KHÔNG BAO GIỜ được là mục tiêu.",
+        "Chọn loại review phù hợp để đạt mục tiêu, phù hợp loại sản phẩm, người tham gia, nhu cầu và bối cảnh dự án.",
+        "Review theo từng phần nhỏ (small chunks) để reviewer không mất tập trung khi review cá nhân và/hoặc trong cuộc họp review.",
+        "Cung cấp phản hồi từ review cho stakeholder và tác giả để họ cải thiện sản phẩm và hoạt động của mình.",
+        "Dành đủ thời gian cho người tham gia chuẩn bị review.",
+        "Có sự hỗ trợ của ban quản lý (management support) cho quy trình review.",
+        "Đưa review thành một phần văn hóa tổ chức để thúc đẩy học hỏi và cải tiến quy trình; đào tạo đầy đủ cho mọi người tham gia để biết cách thực hiện vai trò; điều phối (facilitate) các cuộc họp."
+      ],
+      "en": [
+        "Defining clear objectives and measurable exit criteria. Evaluation of participants should never be an objective",
+        "Performing reviews on small chunks, so that reviewers do not lose concentration during an individual review and/or the review meeting (when held)",
+        "Making reviews part of the organization's culture, to promote learning and process improvement"
+      ],
+      "tips": [
+        "Bẫy kinh điển: 'dùng kết quả review để đánh giá hiệu suất người tham gia/tác giả' → KHÔNG phải yếu tố thành công (syllabus nói rõ không bao giờ là mục tiêu).",
+        "Bẫy: 'review toàn bộ tài liệu lớn trong một lần' là sai — phải chia nhỏ (small chunks)."
+      ],
+      "terms": ["review", "review meeting", "formal review"]
+    }
+  ],
+  "glossary": [
+    { "en": "anomaly", "vi": "bất thường", "def": "Một điều kiện sai lệch so với kỳ vọng (dựa trên yêu cầu, tiêu chuẩn, kinh nghiệm...). Anomaly phát hiện trong review chưa chắc là defect, cần được phân tích và thảo luận.", "kw": true },
+    { "en": "dynamic testing", "vi": "kiểm thử động", "def": "Kiểm thử có thực thi phần mềm đang được kiểm thử; gây ra failure rồi phân tích để tìm defect, chỉ áp dụng cho sản phẩm thực thi được.", "kw": true },
+    { "en": "formal review", "vi": "review chính thức", "def": "Loại review tuân theo quy trình được định nghĩa, có đầu ra được ghi thành tài liệu (vd technical review, inspection).", "kw": true },
+    { "en": "informal review", "vi": "review không chính thức", "def": "Loại review không theo quy trình xác định và không yêu cầu đầu ra tài liệu hình thức; mục tiêu chính là phát hiện anomaly.", "kw": true },
+    { "en": "inspection", "vi": "thanh tra (inspection)", "def": "Loại review hình thức nhất, theo đầy đủ quy trình review chung, mục tiêu chính là tìm số anomaly tối đa, có thu thập metrics; tác giả không được làm review leader hay scribe.", "kw": true },
+    { "en": "review", "vi": "rà soát / đánh giá (review)", "def": "Một dạng kiểm thử tĩnh trong đó con người kiểm tra thủ công sản phẩm công việc để tìm anomaly, đánh giá chất lượng hoặc đạt mục tiêu khác.", "kw": true },
+    { "en": "static analysis", "vi": "phân tích tĩnh", "def": "Kiểm thử tĩnh bằng công cụ, đánh giá sản phẩm có cấu trúc (code, mô hình, văn bản có cú pháp hình thức) mà không thực thi; thường tích hợp vào CI.", "kw": true },
+    { "en": "static testing", "vi": "kiểm thử tĩnh", "def": "Kiểm thử không cần thực thi phần mềm, đánh giá sản phẩm công việc bằng review thủ công hoặc phân tích tĩnh bằng công cụ.", "kw": true },
+    { "en": "technical review", "vi": "review kỹ thuật", "def": "Loại review do các reviewer có chuyên môn kỹ thuật thực hiện, do moderator dẫn dắt; mục tiêu chính là đạt đồng thuận và ra quyết định về vấn đề kỹ thuật.", "kw": true },
+    { "en": "walkthrough", "vi": "duyệt qua (walkthrough)", "def": "Loại review do tác giả dẫn dắt, phục vụ nhiều mục tiêu như đánh giá chất lượng, đào tạo reviewer, đạt đồng thuận, tạo ý tưởng mới, phát hiện anomaly; review cá nhân trước là không bắt buộc.", "kw": true },
+    { "en": "unreachable code", "vi": "mã không thể chạy tới", "def": "Đoạn code không bao giờ được thực thi; là ví dụ lỗi kiểm thử động không phát hiện được nhưng kiểm thử tĩnh tìm ra.", "kw": false },
+    { "en": "stakeholder feedback", "vi": "phản hồi của bên liên quan", "def": "Ý kiến của stakeholder về sản phẩm trong suốt SDLC; nếu sớm và thường xuyên sẽ giúp phát hiện sớm vấn đề chất lượng và tránh hiểu sai yêu cầu.", "kw": false },
+    { "en": "iso/iec 20246", "vi": "chuẩn ISO/IEC 20246", "def": "Tiêu chuẩn quốc tế về review sản phẩm công việc, định nghĩa quy trình review chung có cấu trúc nhưng linh hoạt, cùng các kỹ thuật và vai trò review chi tiết.", "kw": false },
+    { "en": "individual review", "vi": "review cá nhân", "def": "Hoạt động trong quy trình review, khi mỗi reviewer tự đánh giá sản phẩm và ghi lại anomaly, đề xuất, câu hỏi bằng một hoặc nhiều kỹ thuật review.", "kw": false },
+    { "en": "review meeting", "vi": "cuộc họp review", "def": "Cuộc họp (thường trong bước Communication and analysis) để thảo luận anomaly, quyết định trạng thái, người phụ trách, hành động và mức chất lượng của sản phẩm.", "kw": false },
+    { "en": "checklist-based reviewing", "vi": "review dựa trên danh sách kiểm tra", "def": "Kỹ thuật review trong đó reviewer dùng một checklist các câu hỏi/điểm cần kiểm tra để phát hiện anomaly.", "kw": false },
+    { "en": "scenario-based reviewing", "vi": "review dựa trên kịch bản", "def": "Kỹ thuật review trong đó reviewer được hướng dẫn theo các kịch bản sử dụng cụ thể khi đọc sản phẩm.", "kw": false },
+    { "en": "manager", "vi": "quản lý (vai trò review)", "def": "Vai trò trong review: quyết định cái gì được review và cung cấp nguồn lực như nhân sự, thời gian.", "kw": false },
+    { "en": "author", "vi": "tác giả", "def": "Vai trò trong review: người tạo ra và sửa sản phẩm được review; dẫn dắt walkthrough nhưng không được làm review leader hay scribe trong inspection.", "kw": false },
+    { "en": "moderator", "vi": "người điều phối (facilitator)", "def": "Vai trò trong review: đảm bảo cuộc họp review hiệu quả — hòa giải, quản lý thời gian, tạo môi trường an toàn để mọi người phát biểu; dẫn dắt technical review.", "kw": false },
+    { "en": "scribe", "vi": "thư ký (recorder)", "def": "Vai trò trong review: tổng hợp anomaly từ reviewer và ghi lại thông tin review như quyết định và anomaly mới trong cuộc họp.", "kw": false },
+    { "en": "reviewer", "vi": "người review", "def": "Vai trò thực hiện review; có thể là thành viên dự án, chuyên gia lĩnh vực hoặc bất kỳ stakeholder nào.", "kw": false },
+    { "en": "review leader", "vi": "trưởng nhóm review", "def": "Vai trò chịu trách nhiệm tổng thể về review: quyết định ai tham gia, tổ chức review khi nào và ở đâu.", "kw": false },
+    { "en": "audit trail", "vi": "vết kiểm toán", "def": "Hồ sơ lưu vết có thể truy xét; nhu cầu audit trail là một yếu tố quyết định mức độ hình thức của review.", "kw": false }
+  ]
+}

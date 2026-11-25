@@ -6,8 +6,12 @@ Web app tĩnh (HTML/CSS/JS thuần, không cần build) để luyện 4 đề th
 - **Đề A, B, C, D** (40 câu, 60 phút, đạt ≥ 26/40) + **Bonus A1–A26** của đề A
 - Dịch tiếng Việt câu hỏi, đáp án, bối cảnh; giải thích chi tiết; 🔊 nghe phát âm English (US)
 - Nhãn Learning Objective (FL-x.x.x · K-level) cho từng câu
+- 📖 **Lý thuyết dưới mỗi lời giải**: tóm tắt tiếng Việt mục syllabus tương ứng, câu gốc tiếng Anh, mẹo thi, thuật ngữ, link PDF đúng trang
+- 📖 **Giáo trình**: 64 mục syllabus theo 6 chương, mỗi mục có nút luyện các câu liên quan trong cả 4 đề
+- 🔤 **Từ vựng**: 176 thuật ngữ Anh–Việt (flashcard, danh sách, tìm kiếm) + mẹo đọc đề
+- Gạch chân thuật ngữ trong đề (chạm để xem nghĩa) và tô vàng từ bẫy (NOT, BEST, MOST…)
+- 3 chế độ: 📗 **Học** (hiện tiếng Việt ngay) · 📘 **Luyện** · 📕 **Thi thật** (100% tiếng Anh, đổi được đáp án, chấm khi nộp)
 - 📕 **Sổ câu sai**: tự gom câu làm sai ở mọi đề, luyện lại; làm đúng thì câu được gạch khỏi sổ
-- 📚 **Theo chương**: luyện câu hỏi của cả 4 đề theo 6 chương syllabus
 - 📈 **Tiến độ**: lịch sử điểm từng lần nộp, điểm cao nhất mỗi đề, độ chính xác theo chương
 - Tự lưu tiến độ & đồng hồ vào `localStorage` (F5 không mất bài)
 
@@ -29,12 +33,14 @@ js/app.js             # logic: tab, timer, chấm điểm, sổ câu sai, theo c
 data/exam-a.js        # dữ liệu đề A (+ bonus)
 data/exam-b|c|d.js    # dữ liệu đề B, C, D (sinh từ tools/source/*.json)
 data/lo-map.js        # LO, K-level, đáp án chuẩn của từng câu
+data/syllabus.js      # lý thuyết 64 LO + từ vựng (sinh từ tools/source/syllabus/ch1..6.json)
+docs/                 # ISTQB CTFL Syllabus v4.0.1 (PDF)
 images/               # sơ đồ minh hoạ
 tools/source/*.json   # dữ liệu nguồn đề B, C, D (sửa ở đây)
 tools/build_data.py   # sinh lại data/*.js từ tools/source
 ```
 
-Sửa nội dung đề B/C/D: chỉnh `tools/source/exam-x.json` rồi chạy `python3 tools/build_data.py`.
+Sửa nội dung đề B/C/D hoặc lý thuyết: chỉnh file JSON trong `tools/source/` rồi chạy `python3 tools/build_data.py`.
 
 ## Deploy GitHub Pages
 Repo → **Settings → Pages** → Source: *Deploy from a branch* → Branch `main`, thư mục `/ (root)`.

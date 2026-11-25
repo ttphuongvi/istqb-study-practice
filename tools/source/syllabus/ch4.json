@@ -1,0 +1,385 @@
+{
+  "chapter": {
+    "id": 4,
+    "en": "Test Analysis and Design",
+    "vi": "Phân tích và thiết kế kiểm thử",
+    "intro": "Chương này giới thiệu các kỹ thuật kiểm thử (test technique) hộp đen, hộp trắng, dựa trên kinh nghiệm và các cách tiếp cận dựa trên cộng tác (user story, acceptance criteria, ATDD). Đây là chương nặng nhất của đề thi với nhiều câu K3 bắt bạn tự tính: số test case tối thiểu, giá trị biên, cột decision table, độ phủ state transition và statement/branch coverage. Hãy luyện thật kỹ cách đếm coverage item của từng kỹ thuật."
+  },
+  "units": [
+    {
+      "lo": "FL-4.1.1", "k": "K2",
+      "loEn": "Distinguish black-box test techniques, white-box test techniques and experience-based test techniques",
+      "loVi": "Phân biệt kỹ thuật kiểm thử hộp đen, kỹ thuật kiểm thử hộp trắng và kỹ thuật kiểm thử dựa trên kinh nghiệm",
+      "sec": "4.1", "title": "Test Techniques Overview", "titleVi": "Tổng quan về kỹ thuật kiểm thử", "page": 39,
+      "summary": [
+        "Kỹ thuật kiểm thử (test technique) hỗ trợ tester trong phân tích kiểm thử (test analysis – kiểm thử CÁI GÌ) và thiết kế kiểm thử (test design – kiểm thử NHƯ THẾ NÀO), giúp tạo một bộ test case tương đối nhỏ nhưng đủ, một cách có hệ thống.",
+        "Kỹ thuật còn giúp xác định điều kiện kiểm thử (test condition), mục độ phủ (coverage item) và dữ liệu kiểm thử (test data). Syllabus chia làm 3 nhóm: hộp đen, hộp trắng, dựa trên kinh nghiệm.",
+        "Kỹ thuật hộp đen (black-box test technique, còn gọi là specification-based): dựa trên phân tích hành vi được đặc tả của đối tượng kiểm thử, KHÔNG xét cấu trúc bên trong. Test case độc lập với cách cài đặt → nếu code thay đổi mà hành vi yêu cầu giữ nguyên thì test case vẫn dùng được.",
+        "Kỹ thuật hộp trắng (white-box test technique, còn gọi là structure-based): dựa trên phân tích cấu trúc và xử lý bên trong. Test case phụ thuộc vào thiết kế nên chỉ tạo được SAU KHI đã có thiết kế hoặc code.",
+        "Kỹ thuật dựa trên kinh nghiệm (experience-based test technique): tận dụng kiến thức và kinh nghiệm của tester; hiệu quả phụ thuộc mạnh vào kỹ năng tester. Có thể tìm được defect mà hộp đen và hộp trắng bỏ sót → mang tính BỔ SUNG (complementary) cho hai nhóm kia."
+      ],
+      "en": [
+        "Test techniques support the tester in test analysis (what to test) and in test design (how to test).",
+        "Black-box test techniques (also known as specification-based techniques) are based on an analysis of the specified behavior of the test object without reference to its internal structure.",
+        "White-box test techniques (also known as structure-based techniques) are based on an analysis of the test object's internal structure and processing.",
+        "Experience-based test techniques can detect defects that may be missed using the black-box test techniques and white-box test techniques."
+      ],
+      "tips": [
+        "Từ khóa nhận diện: 'specification / behavior / requirements' → hộp đen; 'internal structure / code / design' → hộp trắng; 'knowledge, experience, skills of tester' → kinh nghiệm.",
+        "Bẫy: test case hộp đen vẫn còn giá trị khi implementation thay đổi; test case hộp trắng chỉ thiết kế được sau khi có design/code."
+      ],
+      "terms": ["test technique", "black-box test technique", "white-box test technique", "experience-based test technique", "coverage item"]
+    },
+    {
+      "lo": "FL-4.2.1", "k": "K3",
+      "loEn": "Use equivalence partitioning to derive test cases",
+      "loVi": "Sử dụng phân vùng tương đương để xây dựng test case",
+      "sec": "4.2.1", "title": "Equivalence Partitioning", "titleVi": "Phân vùng tương đương", "page": 39,
+      "summary": [
+        "Phân vùng tương đương (equivalence partitioning – EP) chia dữ liệu thành các phân vùng (partition) với kỳ vọng mọi phần tử trong cùng phân vùng được xử lý giống nhau → nếu một giá trị phát hiện defect thì giá trị khác cùng phân vùng cũng phát hiện → chỉ cần 1 test cho mỗi phân vùng.",
+        "Phân vùng có thể xác định cho bất kỳ phần tử dữ liệu nào: input, output, cấu hình, giá trị nội bộ, giá trị thời gian, tham số giao diện. Phân vùng có thể liên tục/rời rạc, có thứ tự/không thứ tự, hữu hạn/vô hạn; các phân vùng KHÔNG được chồng lấn và KHÔNG được rỗng.",
+        "Phân vùng hợp lệ (valid partition) chứa giá trị hợp lệ; phân vùng không hợp lệ (invalid partition) chứa giá trị không hợp lệ. Định nghĩa hợp lệ/không hợp lệ có thể khác nhau giữa các nhóm/tổ chức.",
+        "Coverage item = các phân vùng (kể cả phân vùng không hợp lệ). Coverage = số phân vùng được ít nhất 1 test case thực thi / tổng số phân vùng × 100%. Để đạt 100% phải phủ mỗi phân vùng ít nhất một lần.",
+        "Khi có nhiều tập phân vùng (nhiều tham số input), tiêu chí đơn giản nhất là Each Choice coverage: mỗi phân vùng của mỗi tập được phủ ít nhất một lần; KHÔNG xét tổ hợp giữa các phân vùng. Số test tối thiểu = số phân vùng của tập lớn nhất (vì một test phủ đồng thời phân vùng của nhiều tập).",
+        "Ví dụ: tuổi hợp lệ 18–60. Phân vùng: ≤17 (invalid), 18–60 (valid), ≥61 (invalid) → 3 coverage item → tối thiểu 3 test, vd 10, 30, 70. Nếu chỉ test 30 và 70 → coverage 2/3 ≈ 67%.",
+        "Ví dụ Each Choice: Tham số A có 3 phân vùng, tham số B có 2 phân vùng → tối thiểu 3 test (vd A1-B1, A2-B2, A3-B1)."
+      ],
+      "en": [
+        "Equivalence Partitioning (EP) divides data into partitions based on the expectation that all the elements of a given partition are to be processed in the same way by the test object.",
+        "The partitions must not overlap and must be non-empty sets.",
+        "In EP, the coverage items are the equivalence partitions.",
+        "Each Choice coverage requires test cases to exercise each partition from each set of partitions at least once."
+      ],
+      "tips": [
+        "Đừng quên đếm phân vùng KHÔNG hợp lệ — 100% coverage EP bao gồm cả invalid partition. Đọc kỹ đề: có khi một input vừa có phân vùng theo khoảng giá trị vừa có phân vùng như 'không phải số'.",
+        "Câu hỏi 'số test case tối thiểu' với nhiều tham số theo Each Choice: lấy số phân vùng LỚN NHẤT trong các tham số, không phải nhân hoặc cộng."
+      ],
+      "terms": ["equivalence partitioning", "valid partition", "invalid partition", "each choice coverage", "coverage", "coverage item"]
+    },
+    {
+      "lo": "FL-4.2.2", "k": "K3",
+      "loEn": "Use boundary value analysis to derive test cases",
+      "loVi": "Sử dụng phân tích giá trị biên để xây dựng test case",
+      "sec": "4.2.2", "title": "Boundary Value Analysis", "titleVi": "Phân tích giá trị biên", "page": 40,
+      "summary": [
+        "Phân tích giá trị biên (boundary value analysis – BVA) kiểm thử các biên của phân vùng tương đương; chỉ dùng được cho phân vùng CÓ THỨ TỰ (ordered). Giá trị nhỏ nhất và lớn nhất của một phân vùng là giá trị biên (boundary value).",
+        "Lý do: developer dễ mắc lỗi ở biên; defect điển hình là biên cài đặt bị lệch lên/xuống so với vị trí dự định hoặc bị bỏ sót hoàn toàn.",
+        "BVA 2 giá trị (2-value BVA): với mỗi giá trị biên có 2 coverage item: chính giá trị biên và giá trị láng giềng gần nhất thuộc phân vùng KỀ BÊN. Coverage = số giá trị biên đã thực thi / tổng số giá trị biên xác định.",
+        "BVA 3 giá trị (3-value BVA): với mỗi giá trị biên có 3 coverage item: giá trị biên và CẢ HAI láng giềng (một số coverage item có thể không phải giá trị biên). Coverage = số (giá trị biên + láng giềng) đã thực thi / tổng số (giá trị biên + láng giềng).",
+        "Ví dụ 2-value: hợp lệ 1–100 (số nguyên) → phân vùng ≤0 | 1–100 | ≥101; các giá trị biên: 0, 1, 100, 101 → 4 coverage item: {0, 1, 100, 101}.",
+        "Ví dụ 3-value cùng đề: biên 0 → {-1, 0, 1}; biên 1 → {0, 1, 2}; biên 100 → {99, 100, 101}; biên 101 → {100, 101, 102}. Gộp giá trị trùng → 8 coverage item: -1, 0, 1, 2, 99, 100, 101, 102. Luôn loại giá trị trùng khi đếm.",
+        "3-value BVA chặt hơn 2-value: nếu 'if (x ≤ 10)' bị cài sai thành 'if (x = 10)', dữ liệu 2-value (x = 10, x = 11) không phát hiện được, còn x = 9 của 3-value thì có khả năng phát hiện."
+      ],
+      "en": [
+        "BVA can only be used for ordered partitions. The minimum and maximum values of a partition are its boundary values.",
+        "In 2-value BVA, for each boundary value there are two coverage items: this boundary value and its closest neighbor belonging to the adjacent partition.",
+        "In 3-value BVA, for each boundary value there are three coverage items: this boundary value and both its neighbors.",
+        "3-value BVA is more rigorous than 2-value BVA as it may detect defects overlooked by 2-value BVA."
+      ],
+      "tips": [
+        "Cách làm chắc chắn: (1) vẽ trục số và các phân vùng, (2) ghi min/max của từng phân vùng = các giá trị biên, (3) 2-value: lấy tất cả giá trị biên; 3-value: mỗi biên thêm cả hai láng giềng, (4) gộp các giá trị trùng rồi đếm.",
+        "Chú ý bước nhảy của dữ liệu: số nguyên bước 1, tiền tệ bước 0.01... Láng giềng của 100 với bước 0.01 là 99.99 và 100.01."
+      ],
+      "terms": ["boundary value analysis", "boundary value", "2-value boundary value analysis", "3-value boundary value analysis", "coverage item"]
+    },
+    {
+      "lo": "FL-4.2.3", "k": "K3",
+      "loEn": "Use decision table testing to derive test cases",
+      "loVi": "Sử dụng kiểm thử bảng quyết định để xây dựng test case",
+      "sec": "4.2.3", "title": "Decision Table Testing", "titleVi": "Kiểm thử bảng quyết định", "page": 41,
+      "summary": [
+        "Bảng quyết định (decision table) dùng để kiểm thử yêu cầu mô tả các TỔ HỢP điều kiện dẫn đến các kết quả khác nhau; hiệu quả để ghi lại logic phức tạp như quy tắc nghiệp vụ (business rules).",
+        "Hàng = điều kiện (conditions) và hành động (actions); mỗi cột = một quy tắc quyết định (decision rule) gồm một tổ hợp điều kiện duy nhất và hành động tương ứng. Limited-entry: giá trị là Boolean (T/F); extended-entry: điều kiện/hành động có thể nhận nhiều giá trị (khoảng số, phân vùng, giá trị rời rạc).",
+        "Ký hiệu: T = điều kiện thỏa; F = không thỏa; '–' = không liên quan đến kết quả; 'N/A' = tổ hợp không khả thi (infeasible). Hành động: X = xảy ra; để trống = không xảy ra.",
+        "Bảng đầy đủ có đủ cột cho mọi tổ hợp (n điều kiện Boolean → 2^n cột). Có thể đơn giản hóa bằng cách xóa cột không khả thi, và tối giản (minimize) bằng cách gộp các cột mà một số điều kiện không ảnh hưởng kết quả (thuật toán tối giản ngoài phạm vi syllabus).",
+        "Coverage item = các cột chứa tổ hợp điều kiện KHẢ THI. Coverage = số cột đã thực thi / tổng số cột khả thi × 100%.",
+        "Ví dụ: Giảm giá nếu C1 'là thành viên' và C2 'đơn ≥ 1 triệu'. 2 điều kiện → 4 cột: TT→giảm 10%, TF→giảm 5%, FT→miễn phí ship, FF→không gì. 4 cột khả thi → cần 4 test cho 100%. Nếu có một cột N/A thì chỉ còn 3 coverage item.",
+        "Điểm mạnh: cách tiếp cận hệ thống để tìm mọi tổ hợp (kể cả tổ hợp dễ bị bỏ sót), giúp phát hiện lỗ hổng hoặc mâu thuẫn trong yêu cầu. Điểm yếu: số quy tắc tăng theo hàm mũ khi nhiều điều kiện → dùng bảng tối giản hoặc cách tiếp cận dựa trên rủi ro."
+      ],
+      "en": [
+        "Each column corresponds to a decision rule that defines a unique combination of conditions, along with the associated actions.",
+        "In decision table testing, the coverage items are the columns containing feasible combinations of conditions.",
+        "It also helps to find any gaps or contradictions in the requirements.",
+        "The number of rules grows exponentially with the number of conditions."
+      ],
+      "tips": [
+        "Đếm test cho 100% coverage = số cột KHẢ THI (bỏ cột N/A); nếu đề cho bảng đã tối giản thì đếm số cột của bảng đó, không tính lại 2^n.",
+        "Bẫy: '–' (irrelevant) khác 'N/A' (infeasible). Cột có '–' vẫn là một coverage item; cột N/A thì bị loại."
+      ],
+      "terms": ["decision table testing", "coverage item", "coverage"]
+    },
+    {
+      "lo": "FL-4.2.4", "k": "K3",
+      "loEn": "Use state transition testing to derive test cases",
+      "loVi": "Sử dụng kiểm thử chuyển trạng thái để xây dựng test case",
+      "sec": "4.2.4", "title": "State Transition Testing", "titleVi": "Kiểm thử chuyển trạng thái", "page": 41,
+      "summary": [
+        "Sơ đồ trạng thái (state diagram) mô hình hóa hành vi hệ thống bằng các trạng thái và chuyển tiếp (transition) hợp lệ. Transition được khởi phát bởi sự kiện (event), có thể kèm điều kiện bảo vệ (guard condition); cú pháp nhãn: 'event [guard condition] / action'. Transition xảy ra tức thời và có thể kèm hành động.",
+        "Bảng trạng thái (state table) tương đương sơ đồ: hàng = trạng thái, cột = sự kiện (kèm guard nếu có), ô = trạng thái đích (+ hành động). Khác với sơ đồ, bảng thể hiện RÕ các transition KHÔNG hợp lệ (ô trống).",
+        "Một test case thường là chuỗi sự kiện → chuỗi thay đổi trạng thái; một test case có thể (và thường) phủ nhiều transition.",
+        "All states coverage: coverage item = các trạng thái. Coverage = số trạng thái đã đi qua / tổng số trạng thái.",
+        "Valid transitions coverage (còn gọi 0-switch coverage): coverage item = từng transition hợp lệ. Coverage = số transition hợp lệ đã thực thi / tổng số transition hợp lệ. Đây là tiêu chí phổ biến nhất.",
+        "All transitions coverage: coverage item = TẤT CẢ transition trong state table (hợp lệ + không hợp lệ). Phải thực thi mọi transition hợp lệ và THỬ mọi transition không hợp lệ; mỗi test case chỉ nên thử MỘT transition không hợp lệ để tránh che lấp lỗi (defect masking). Là yêu cầu tối thiểu cho phần mềm mission-critical và safety-critical.",
+        "Quan hệ mạnh/yếu: all states < valid transitions < all transitions. 100% valid transitions ⇒ 100% all states; 100% all transitions ⇒ cả hai. All states thường đạt được mà không cần đi hết transition.",
+        "Ví dụ: cửa có 3 trạng thái Đóng, Mở, Khóa; transition hợp lệ: Đóng–mở→Mở, Mở–đóng→Đóng, Đóng–khóa→Khóa, Khóa–mở khóa→Đóng (4). Test 'Đóng→Mở→Đóng→Khóa→Đóng' đạt 100% all states và 100% valid transitions. State table: 3 trạng thái × 4 sự kiện = 12 ô → 4 hợp lệ + 8 không hợp lệ = 12 coverage item cho all transitions."
+      ],
+      "en": [
+        "A transition is initiated by an event, which may be additionally qualified by a guard condition.",
+        "In contrast to the state diagram, the state table explicitly shows invalid transitions, which are represented by empty cells.",
+        "Testing only one invalid transition in a single test case helps to avoid defect masking.",
+        "Achieving full valid transitions coverage guarantees full all states coverage."
+      ],
+      "tips": [
+        "Câu hỏi 'số test case tối thiểu để đạt 100% valid transitions': tìm đường đi (chuỗi sự kiện) dài nhất có thể, chú ý trạng thái kết thúc (final state) buộc phải bắt đầu test case mới.",
+        "Với all transitions: số coverage item = số ô của state table (số trạng thái × số sự kiện); mỗi invalid transition thường cần một test case riêng."
+      ],
+      "terms": ["state transition testing", "state table", "transition", "guard condition", "all states coverage", "valid transitions coverage", "all transitions coverage"]
+    },
+    {
+      "lo": "FL-4.3.1", "k": "K2",
+      "loEn": "Explain statement testing",
+      "loVi": "Giải thích kiểm thử câu lệnh",
+      "sec": "4.3.1", "title": "Statement Testing and Statement Coverage", "titleVi": "Kiểm thử câu lệnh và độ phủ câu lệnh", "page": 42,
+      "summary": [
+        "Mục 4.3 tập trung vào 2 kỹ thuật hộp trắng phổ biến, đơn giản: kiểm thử câu lệnh (statement testing) và kiểm thử nhánh (branch testing). Các kỹ thuật chặt hơn (cho môi trường safety-critical), kỹ thuật ở mức cao (API) hoặc độ phủ không liên quan code (neuron coverage) nằm ngoài syllabus.",
+        "Trong statement testing, coverage item = các câu lệnh thực thi được (executable statement). Statement coverage = số câu lệnh được thực thi / tổng số câu lệnh thực thi được × 100%.",
+        "Đạt 100% statement coverage đảm bảo mọi câu lệnh thực thi được chạy ít nhất một lần → mỗi câu lệnh có defect đều được thực thi, có thể gây failure để lộ defect.",
+        "Hạn chế: không phát hiện mọi defect, vd defect phụ thuộc dữ liệu (chia cho 0 chỉ lỗi khi mẫu số = 0); và 100% statement coverage KHÔNG đảm bảo đã kiểm thử hết logic quyết định (có thể chưa đi hết các nhánh).",
+        "Ví dụ: 'if (x > 0) { y = 1; } print(y);' — 1 test x = 5 đi qua mọi câu lệnh → 100% statement coverage, nhưng nhánh false của if (x ≤ 0) chưa được chạy."
+      ],
+      "en": [
+        "In statement testing, the coverage items are executable statements.",
+        "When 100% statement coverage is achieved, it ensures that all executable statements in the code have been exercised at least once.",
+        "It may not detect defects that are data dependent (e.g., a division by zero that only fails when a denominator is set to zero).",
+        "100% statement coverage does not ensure that all the decision logic has been tested."
+      ],
+      "tips": [
+        "If không có else: một test đi vào nhánh true thường đủ 100% statement coverage; nhưng branch coverage cần thêm test cho nhánh false.",
+        "Statement coverage là tiêu chí YẾU hơn branch coverage — đáp án nói 100% statement ⇒ 100% branch là SAI."
+      ],
+      "terms": ["statement coverage", "white-box test technique", "coverage"]
+    },
+    {
+      "lo": "FL-4.3.2", "k": "K2",
+      "loEn": "Explain branch testing",
+      "loVi": "Giải thích kiểm thử nhánh",
+      "sec": "4.3.2", "title": "Branch Testing and Branch Coverage", "titleVi": "Kiểm thử nhánh và độ phủ nhánh", "page": 43,
+      "summary": [
+        "Nhánh (branch) là sự chuyển điều khiển giữa hai nút trong đồ thị luồng điều khiển (control flow graph). Nhánh có thể vô điều kiện (unconditional – code tuần tự) hoặc có điều kiện (conditional – một kết quả của quyết định).",
+        "Trong branch testing, coverage item = các nhánh. Branch coverage = số nhánh được thực thi / tổng số nhánh × 100%.",
+        "100% branch coverage nghĩa là mọi nhánh, cả vô điều kiện lẫn có điều kiện, đều được thực thi. Nhánh có điều kiện thường là kết quả true/false của 'if...then', một kết quả của switch/case, hoặc quyết định thoát/tiếp tục vòng lặp.",
+        "Hạn chế: không phát hiện mọi defect, vd defect chỉ xuất hiện khi chạy một đường đi (path) cụ thể.",
+        "Branch coverage BAO HÀM (subsumes) statement coverage: bộ test đạt 100% branch coverage cũng đạt 100% statement coverage (ngược lại thì không).",
+        "Ví dụ: 'if (a > b) {...} else {...}' cần 2 test (a > b và a ≤ b) cho 100% branch coverage. Hai if nối tiếp độc lập (mỗi if có true/false) → tối thiểu 2 test (TT và FF) là đủ phủ 4 nhánh có điều kiện."
+      ],
+      "en": [
+        "A branch is a transfer of control between two nodes in the control flow graph.",
+        "In branch testing the coverage items are branches.",
+        "Conditional branches typically correspond to a true or false outcome from an 'if...then' decision, an outcome from a switch/case statement, or a decision to exit or continue in a loop.",
+        "Branch coverage subsumes statement coverage."
+      ],
+      "tips": [
+        "Số test tối thiểu cho 100% branch coverage ≥ số test cho 100% statement coverage; với if không có else thường là 2 so với 1.",
+        "Đọc kỹ đề: phần trăm coverage tính trên tổng số nhánh; đề có thể cho số nhánh đã phủ và yêu cầu tính %."
+      ],
+      "terms": ["branch coverage", "branch", "statement coverage", "white-box test technique"]
+    },
+    {
+      "lo": "FL-4.3.3", "k": "K2",
+      "loEn": "Explain the value of white-box testing",
+      "loVi": "Giải thích giá trị của kiểm thử hộp trắng",
+      "sec": "4.3.3", "title": "The Value of White-box Testing", "titleVi": "Giá trị của kiểm thử hộp trắng", "page": 43,
+      "summary": [
+        "Điểm mạnh cốt lõi: toàn bộ phần cài đặt (implementation) được xét đến khi kiểm thử → giúp phát hiện defect ngay cả khi đặc tả mơ hồ, lỗi thời hoặc không đầy đủ.",
+        "Điểm yếu tương ứng: nếu phần mềm KHÔNG cài đặt một hoặc nhiều yêu cầu, kiểm thử hộp trắng có thể không phát hiện được các defect do thiếu sót (defects of omission).",
+        "Kỹ thuật hộp trắng dùng được trong kiểm thử tĩnh (static testing), vd chạy thử khô (dry run) code; phù hợp để review code chưa sẵn sàng chạy, pseudocode và logic mức cao có thể mô hình hóa bằng control flow graph.",
+        "Chỉ làm kiểm thử hộp đen thì không đo được độ phủ code thực tế. Độ đo hộp trắng cho phép đo coverage một cách khách quan và cung cấp thông tin để tạo thêm test tăng coverage, qua đó tăng sự tin tưởng vào code."
+      ],
+      "en": [
+        "The entire software implementation is taken into account during testing, which facilitates defect detection even when the software specification is vague, outdated or incomplete.",
+        "If the software does not implement one or more requirements, white-box testing may not detect the resulting defects of omission.",
+        "Performing only black-box testing does not provide a measure of actual code coverage."
+      ],
+      "tips": [
+        "Bẫy: 'yêu cầu bị thiếu trong code' → hộp trắng KHÔNG phát hiện được (cần hộp đen dựa trên đặc tả).",
+        "Nhớ: hộp trắng không chỉ là kiểm thử động — có thể dùng trong static testing (dry run, review pseudocode)."
+      ],
+      "terms": ["white-box test technique", "coverage", "black-box test technique"]
+    },
+    {
+      "lo": "FL-4.4.1", "k": "K2",
+      "loEn": "Explain error guessing",
+      "loVi": "Giải thích kỹ thuật phỏng đoán lỗi",
+      "sec": "4.4.1", "title": "Error Guessing", "titleVi": "Phỏng đoán lỗi", "page": 43,
+      "summary": [
+        "Mục 4.4 gồm 3 kỹ thuật dựa trên kinh nghiệm: phỏng đoán lỗi (error guessing), kiểm thử thăm dò (exploratory testing), kiểm thử dựa trên checklist (checklist-based testing).",
+        "Error guessing dự đoán sự xuất hiện của error, defect, failure dựa trên kiến thức của tester: (1) ứng dụng đã hoạt động thế nào trong quá khứ; (2) loại error developer hay mắc và defect do chúng gây ra; (3) loại failure đã xảy ra ở các ứng dụng tương tự.",
+        "Error/defect/failure thường liên quan đến: input (input đúng bị từ chối, tham số sai/thiếu), output (sai định dạng, sai kết quả), logic (thiếu trường hợp, sai toán tử), tính toán (sai toán hạng, tính sai), giao diện (tham số không khớp, kiểu không tương thích), dữ liệu (khởi tạo sai, sai kiểu).",
+        "Tấn công lỗi (fault attack) là một cách hiện thực error guessing: tester tạo hoặc thu thập danh sách error, defect, failure có thể xảy ra và thiết kế test để xác định defect, làm lộ defect hoặc gây ra failure. Danh sách dựa trên kinh nghiệm, dữ liệu defect/failure, hoặc hiểu biết chung về lý do phần mềm hỏng."
+      ],
+      "en": [
+        "Error guessing is a test technique used to anticipate the occurrence of errors, defects, and failures, based on the tester's knowledge.",
+        "Fault attacks are a way to implement error guessing.",
+        "These lists can be built based on experience, defect and failure data, or from common knowledge about why software fails."
+      ],
+      "tips": [
+        "Thấy 'danh sách lỗi có thể xảy ra' + 'thiết kế test để tấn công' → fault attack / error guessing, không phải checklist-based testing.",
+        "Error guessing dựa vào kiến thức về lỗi quá khứ và lỗi developer hay mắc — khác exploratory testing (học về sản phẩm trong lúc test)."
+      ],
+      "terms": ["error guessing", "fault attack", "experience-based test technique"]
+    },
+    {
+      "lo": "FL-4.4.2", "k": "K2",
+      "loEn": "Explain exploratory testing",
+      "loVi": "Giải thích kiểm thử thăm dò",
+      "sec": "4.4.2", "title": "Exploratory Testing", "titleVi": "Kiểm thử thăm dò", "page": 44,
+      "summary": [
+        "Trong exploratory testing, test được thiết kế, thực thi và đánh giá ĐỒNG THỜI trong khi tester tìm hiểu đối tượng kiểm thử; dùng để hiểu thêm về đối tượng, khám phá sâu bằng test tập trung và tạo test cho vùng chưa được kiểm thử.",
+        "Có thể tổ chức theo session-based testing: thực hiện trong một khung thời gian cố định (time box); dùng test charter chứa mục tiêu kiểm thử để định hướng; sau session thường có debriefing (trao đổi giữa tester và stakeholder về kết quả).",
+        "Trong cách này, mục tiêu kiểm thử có thể coi như test condition mức cao; coverage item được xác định và thực thi ngay trong session; tester có thể dùng test session sheet để ghi lại các bước và phát hiện.",
+        "Hữu ích khi: đặc tả ít hoặc không đầy đủ, áp lực thời gian lớn, hoặc để bổ sung cho các kỹ thuật chính thức hơn.",
+        "Hiệu quả hơn khi tester có kinh nghiệm, kiến thức nghiệp vụ và kỹ năng như phân tích, tò mò, sáng tạo. Exploratory testing có thể kết hợp kỹ thuật khác (vd equivalence partitioning)."
+      ],
+      "en": [
+        "In exploratory testing, tests are simultaneously designed, executed, and evaluated while the tester learns about the test object.",
+        "In a session-based approach, exploratory testing is performed within a defined time box. The tester uses a test charter containing test objectives to guide the testing.",
+        "Exploratory testing is useful when there are few or inadequate specifications or there is significant time pressure on the testing."
+      ],
+      "tips": [
+        "Từ khóa nhận diện: time box, test charter, debriefing, session sheet → session-based exploratory testing.",
+        "Bẫy: exploratory testing KHÔNG phải là test ngẫu nhiên không cấu trúc; nó có thể có cấu trúc (session-based) và dùng cả kỹ thuật hộp đen."
+      ],
+      "terms": ["exploratory testing", "experience-based test technique"]
+    },
+    {
+      "lo": "FL-4.4.3", "k": "K2",
+      "loEn": "Explain checklist-based testing",
+      "loVi": "Giải thích kiểm thử dựa trên checklist",
+      "sec": "4.4.3", "title": "Checklist-Based Testing", "titleVi": "Kiểm thử dựa trên checklist", "page": 44,
+      "summary": [
+        "Trong checklist-based testing, tester thiết kế, cài đặt và thực thi test để phủ các test condition trong một checklist. Checklist được xây dựng từ kinh nghiệm, hiểu biết về điều quan trọng với người dùng, hoặc hiểu biết vì sao/như thế nào phần mềm hỏng.",
+        "Checklist KHÔNG nên chứa: mục có thể kiểm tra tự động, mục phù hợp hơn làm entry/exit criteria, hoặc mục quá chung chung.",
+        "Mục checklist thường viết dạng câu hỏi, phải kiểm tra được riêng rẽ và trực tiếp; có thể liên quan đến yêu cầu, giao diện đồ họa, đặc tính chất lượng... Dùng được cho cả kiểm thử chức năng và phi chức năng (vd 10 heuristic usability của Nielsen).",
+        "Một số mục giảm hiệu quả theo thời gian vì developer học cách tránh lỗi đó; cần thêm mục mới cho defect nghiêm trọng mới phát hiện → cập nhật checklist thường xuyên dựa trên phân tích defect, nhưng tránh để checklist quá dài.",
+        "Khi không có test case chi tiết, checklist cung cấp hướng dẫn và mức độ nhất quán nhất định. Checklist mức cao → biến thiên trong kiểm thử thực tế → độ phủ có thể lớn hơn nhưng khả năng lặp lại (repeatability) thấp hơn."
+      ],
+      "en": [
+        "Checklists should not contain items that can be checked automatically, items better suited as entry criteria, exit criteria, or items that are too general.",
+        "Checklist items are often phrased in the form of a question.",
+        "Checklists should be regularly updated based on defect analysis.",
+        "If the checklists are high-level, some variability in the actual testing is likely to occur, resulting in potentially greater coverage but less repeatability."
+      ],
+      "tips": [
+        "Câu hỏi về checklist mức cao: đáp án đúng là 'coverage có thể lớn hơn nhưng ít lặp lại hơn'.",
+        "Nhớ 3 loại mục KHÔNG nên đưa vào checklist: tự động kiểm tra được, nên là entry/exit criteria, quá chung chung."
+      ],
+      "terms": ["checklist-based testing", "experience-based test technique"]
+    },
+    {
+      "lo": "FL-4.5.1", "k": "K2",
+      "loEn": "Explain how to write user stories in collaboration with developers and business representatives",
+      "loVi": "Giải thích cách viết user story với sự cộng tác giữa developer và đại diện nghiệp vụ",
+      "sec": "4.5.1", "title": "Collaborative User Story Writing", "titleVi": "Viết user story cộng tác", "page": 45,
+      "summary": [
+        "Các kỹ thuật ở 4.2–4.4 nhắm vào phát hiện defect; cách tiếp cận dựa trên cộng tác (collaboration-based test approach) còn tập trung vào PHÒNG TRÁNH defect (defect avoidance) nhờ cộng tác và giao tiếp.",
+        "User story mô tả một tính năng có giá trị cho người dùng hoặc người mua hệ thống. 3 khía cạnh '3 C': Card (phương tiện mô tả story – thẻ giấy, mục trên bảng điện tử); Conversation (giải thích phần mềm sẽ được dùng thế nào – có thể ghi lại hoặc nói miệng); Confirmation (tiêu chí chấp nhận – acceptance criteria).",
+        "Định dạng phổ biến: 'As a [role], I want [goal to be accomplished], so that I can [resulting business value for the role]', sau đó là acceptance criteria.",
+        "Viết cộng tác có thể dùng brainstorming và mind mapping; giúp cả nhóm có tầm nhìn chung nhờ kết hợp 3 góc nhìn: nghiệp vụ (business), phát triển (development) và kiểm thử (testing).",
+        "User story tốt theo INVEST: Independent (độc lập), Negotiable (thương lượng được), Valuable (có giá trị), Estimable (ước lượng được), Small (nhỏ), Testable (kiểm thử được). Nếu stakeholder không biết cách test một story → story có thể chưa rõ, không có giá trị với họ, hoặc họ chỉ cần trợ giúp về kiểm thử."
+      ],
+      "en": [
+        "Collaboration-based approaches, on the other hand, focus also on defect avoidance by collaboration and communication.",
+        "User stories have three critical aspects, called together the '3 C's': Card, Conversation, Confirmation.",
+        "Good user stories should be: Independent, Negotiable, Valuable, Estimable, Small and Testable (INVEST)."
+      ],
+      "tips": [
+        "Confirmation = acceptance criteria (không phải 'xác nhận của khách hàng'). Conversation có thể ở dạng nói miệng.",
+        "Thuộc lòng INVEST; chữ T = Testable là chữ liên quan trực tiếp đến tester."
+      ],
+      "terms": ["collaboration-based test approach", "user story", "acceptance criteria"]
+    },
+    {
+      "lo": "FL-4.5.2", "k": "K2",
+      "loEn": "Classify the different options for writing acceptance criteria",
+      "loVi": "Phân loại các cách viết tiêu chí chấp nhận",
+      "sec": "4.5.2", "title": "Acceptance Criteria", "titleVi": "Tiêu chí chấp nhận", "page": 45,
+      "summary": [
+        "Tiêu chí chấp nhận (acceptance criteria) của user story là các điều kiện mà phần cài đặt phải đáp ứng để được stakeholder chấp nhận; có thể xem như test condition cần được kiểm thử. Thường là kết quả của Conversation.",
+        "Acceptance criteria dùng để: (1) xác định phạm vi user story; (2) đạt đồng thuận giữa các stakeholder; (3) mô tả cả kịch bản tích cực (positive) và tiêu cực (negative); (4) làm cơ sở cho kiểm thử chấp nhận user story; (5) cho phép lập kế hoạch và ước lượng chính xác.",
+        "Hai định dạng phổ biến nhất: hướng kịch bản (scenario-oriented), vd Given/When/Then dùng trong BDD; và hướng quy tắc (rule-oriented), vd danh sách gạch đầu dòng để kiểm tra, hoặc bảng ánh xạ input–output.",
+        "Nhóm có thể dùng định dạng tùy chỉnh khác, miễn là acceptance criteria được định nghĩa rõ ràng, không mơ hồ."
+      ],
+      "en": [
+        "Acceptance criteria for a user story are the conditions that an implementation of the user story must meet to be accepted by stakeholders.",
+        "Acceptance criteria may be viewed as the test conditions that should be exercised by the tests.",
+        "The two most common formats are: scenario-oriented (e.g., Given/When/Then format used in BDD) and rule-oriented (e.g., bullet point verification list, or tabulated form of input-output mapping)."
+      ],
+      "tips": [
+        "Given/When/Then → scenario-oriented; danh sách gạch đầu dòng / bảng input-output → rule-oriented.",
+        "Bẫy: acceptance criteria mô tả CẢ kịch bản positive và negative, không chỉ luồng thành công."
+      ],
+      "terms": ["acceptance criteria", "user story", "collaboration-based test approach"]
+    },
+    {
+      "lo": "FL-4.5.3", "k": "K3",
+      "loEn": "Use acceptance test-driven development (ATDD) to derive test cases",
+      "loVi": "Sử dụng phát triển hướng kiểm thử chấp nhận (ATDD) để xây dựng test case",
+      "sec": "4.5.3", "title": "Acceptance Test-driven Development (ATDD)", "titleVi": "Phát triển hướng kiểm thử chấp nhận (ATDD)", "page": 46,
+      "summary": [
+        "ATDD (acceptance test-driven development) là cách tiếp cận test-first: test case được tạo TRƯỚC khi cài đặt user story, bởi các thành viên có góc nhìn khác nhau (khách hàng, developer, tester); có thể chạy thủ công hoặc tự động.",
+        "Bước 1 – specification workshop: cả nhóm phân tích, thảo luận và viết user story và acceptance criteria (nếu chưa có); giải quyết các điểm chưa đầy đủ, mơ hồ hoặc defect trong story.",
+        "Bước 2 – tạo test case (cả nhóm hoặc riêng tester), dựa trên acceptance criteria; test case là các ví dụ (example) về cách phần mềm hoạt động → 'example' và 'test' thường dùng thay thế cho nhau. Có thể áp dụng kỹ thuật ở 4.2, 4.3, 4.4.",
+        "Thứ tự điển hình: (1) test positive trước – xác nhận hành vi đúng, không ngoại lệ/lỗi, luồng mọi thứ diễn ra như mong đợi; (2) sau đó test negative; (3) cuối cùng các đặc tính phi chức năng (vd performance efficiency, usability).",
+        "Test case viết bằng ngôn ngữ tự nhiên dễ hiểu với stakeholder, gồm điều kiện tiên quyết (precondition, nếu có), input và hậu điều kiện (postcondition). Phải phủ TẤT CẢ đặc tính của story nhưng KHÔNG vượt ra ngoài story; không có hai test case mô tả cùng một đặc tính.",
+        "Khi viết theo định dạng framework tự động hỗ trợ, developer có thể tự động hóa bằng cách viết code hỗ trợ khi cài đặt tính năng → acceptance test trở thành yêu cầu thực thi được (executable requirements).",
+        "Ví dụ: Story 'Là khách hàng, tôi muốn rút tiền để chi tiêu'; AC: rút ≤ số dư thì thành công. Test positive: Given số dư 500, When rút 200, Then nhận 200 và số dư 300. Test negative: Given số dư 500, When rút 600, Then báo không đủ tiền, số dư giữ 500."
+      ],
+      "en": [
+        "ATDD is a test-first approach. Test cases are created prior to implementing the user story.",
+        "The first step is a specification workshop where the user story and (if not yet defined) its acceptance criteria are analyzed, discussed, and written by the team members.",
+        "Typically, the first test cases are positive, confirming the correct behavior without exceptions or error conditions.",
+        "The test cases must cover all the characteristics of the user story and should not go beyond the story."
+      ],
+      "tips": [
+        "Câu K3 thường cho một user story + acceptance criteria và hỏi test case nào phù hợp: loại các đáp án kiểm thử điều NGOÀI phạm vi story hoặc trùng đặc tính với test khác; ưu tiên test bám đúng từng acceptance criterion.",
+        "Thứ tự nhớ: positive → negative → non-functional."
+      ],
+      "terms": ["acceptance test-driven development", "acceptance criteria", "user story", "collaboration-based test approach"]
+    }
+  ],
+  "glossary": [
+    { "en": "acceptance criteria", "vi": "tiêu chí chấp nhận", "def": "Các điều kiện mà phần cài đặt của user story phải đáp ứng để được stakeholder chấp nhận; có thể xem như các test condition cần được kiểm thử.", "kw": true },
+    { "en": "acceptance test-driven development", "vi": "phát triển hướng kiểm thử chấp nhận (ATDD)", "def": "Cách tiếp cận test-first trong đó test case được tạo từ acceptance criteria trước khi cài đặt user story, với sự cộng tác của khách hàng, developer và tester.", "kw": true },
+    { "en": "black-box test technique", "vi": "kỹ thuật kiểm thử hộp đen", "def": "Kỹ thuật kiểm thử dựa trên phân tích hành vi được đặc tả của đối tượng kiểm thử mà không xét cấu trúc bên trong (còn gọi là specification-based).", "kw": true },
+    { "en": "boundary value analysis", "vi": "phân tích giá trị biên", "def": "Kỹ thuật hộp đen trong đó test case được thiết kế dựa trên các giá trị biên (min/max) của các phân vùng tương đương có thứ tự.", "kw": true },
+    { "en": "branch coverage", "vi": "độ phủ nhánh", "def": "Tỷ lệ phần trăm số nhánh (có điều kiện và vô điều kiện) được thực thi bởi bộ test trên tổng số nhánh; bao hàm statement coverage.", "kw": true },
+    { "en": "checklist-based testing", "vi": "kiểm thử dựa trên checklist", "def": "Kỹ thuật dựa trên kinh nghiệm trong đó tester thiết kế, cài đặt và thực thi test để phủ các test condition có trong một checklist.", "kw": true },
+    { "en": "collaboration-based test approach", "vi": "cách tiếp cận kiểm thử dựa trên cộng tác", "def": "Cách tiếp cận tập trung vào phòng tránh defect thông qua cộng tác và giao tiếp giữa các bên, vd viết user story cộng tác, acceptance criteria, ATDD.", "kw": true },
+    { "en": "coverage", "vi": "độ phủ", "def": "Mức độ (tính theo phần trăm) mà các coverage item đã được thực thi bởi bộ test.", "kw": true },
+    { "en": "coverage item", "vi": "mục độ phủ", "def": "Thuộc tính hoặc tổ hợp thuộc tính được suy ra từ test condition theo một kỹ thuật kiểm thử, dùng để đo độ phủ (vd phân vùng, giá trị biên, cột decision table, transition, câu lệnh, nhánh).", "kw": true },
+    { "en": "decision table testing", "vi": "kiểm thử bảng quyết định", "def": "Kỹ thuật hộp đen trong đó test case được thiết kế để thực thi các tổ hợp điều kiện (cột/quy tắc khả thi) và hành động tương ứng trong bảng quyết định.", "kw": true },
+    { "en": "equivalence partitioning", "vi": "phân vùng tương đương", "def": "Kỹ thuật hộp đen chia dữ liệu thành các phân vùng mà mọi phần tử trong cùng phân vùng được kỳ vọng xử lý giống nhau; mỗi phân vùng cần ít nhất một test.", "kw": true },
+    { "en": "error guessing", "vi": "phỏng đoán lỗi", "def": "Kỹ thuật dựa trên kinh nghiệm dự đoán error, defect, failure có thể xảy ra dựa trên kiến thức của tester để thiết kế test.", "kw": true },
+    { "en": "experience-based test technique", "vi": "kỹ thuật kiểm thử dựa trên kinh nghiệm", "def": "Kỹ thuật kiểm thử dựa vào kiến thức và kinh nghiệm của tester; bổ sung cho kỹ thuật hộp đen và hộp trắng.", "kw": true },
+    { "en": "exploratory testing", "vi": "kiểm thử thăm dò", "def": "Cách kiểm thử trong đó test được thiết kế, thực thi và đánh giá đồng thời trong khi tester tìm hiểu đối tượng kiểm thử.", "kw": true },
+    { "en": "state transition testing", "vi": "kiểm thử chuyển trạng thái", "def": "Kỹ thuật hộp đen trong đó test case được thiết kế dựa trên sơ đồ hoặc bảng trạng thái, nhằm thực thi các trạng thái và chuyển tiếp.", "kw": true },
+    { "en": "statement coverage", "vi": "độ phủ câu lệnh", "def": "Tỷ lệ phần trăm số câu lệnh thực thi được đã được bộ test chạy qua trên tổng số câu lệnh thực thi được.", "kw": true },
+    { "en": "test technique", "vi": "kỹ thuật kiểm thử", "def": "Quy trình giúp xác định test condition, coverage item và test data, từ đó thiết kế bộ test case nhỏ nhưng đủ một cách có hệ thống.", "kw": true },
+    { "en": "white-box test technique", "vi": "kỹ thuật kiểm thử hộp trắng", "def": "Kỹ thuật kiểm thử dựa trên phân tích cấu trúc và xử lý bên trong của đối tượng kiểm thử (còn gọi là structure-based).", "kw": true },
+    { "en": "valid partition", "vi": "phân vùng hợp lệ", "def": "Phân vùng tương đương chứa các giá trị hợp lệ, tức các giá trị đối tượng kiểm thử phải xử lý hoặc đặc tả có định nghĩa cách xử lý.", "kw": false },
+    { "en": "invalid partition", "vi": "phân vùng không hợp lệ", "def": "Phân vùng tương đương chứa các giá trị không hợp lệ, tức các giá trị cần bị bỏ qua/từ chối hoặc đặc tả không định nghĩa cách xử lý.", "kw": false },
+    { "en": "each choice coverage", "vi": "độ phủ mỗi lựa chọn", "def": "Tiêu chí độ phủ đơn giản nhất khi có nhiều tập phân vùng: mỗi phân vùng của mỗi tập được thực thi ít nhất một lần, không xét tổ hợp.", "kw": false },
+    { "en": "boundary value", "vi": "giá trị biên", "def": "Giá trị nhỏ nhất hoặc lớn nhất của một phân vùng tương đương có thứ tự.", "kw": false },
+    { "en": "2-value boundary value analysis", "vi": "phân tích giá trị biên 2 giá trị", "def": "Biến thể BVA trong đó mỗi giá trị biên có 2 coverage item: giá trị biên và láng giềng gần nhất thuộc phân vùng kề bên.", "kw": false },
+    { "en": "3-value boundary value analysis", "vi": "phân tích giá trị biên 3 giá trị", "def": "Biến thể BVA trong đó mỗi giá trị biên có 3 coverage item: giá trị biên và cả hai láng giềng của nó; chặt hơn 2-value BVA.", "kw": false },
+    { "en": "state table", "vi": "bảng trạng thái", "def": "Mô hình tương đương sơ đồ trạng thái: hàng là trạng thái, cột là sự kiện, ô là trạng thái đích; thể hiện rõ transition không hợp lệ bằng ô trống.", "kw": false },
+    { "en": "transition", "vi": "chuyển tiếp (chuyển trạng thái)", "def": "Sự thay đổi từ trạng thái này sang trạng thái khác, được khởi phát bởi một sự kiện, có thể kèm guard condition và hành động.", "kw": false },
+    { "en": "guard condition", "vi": "điều kiện bảo vệ", "def": "Điều kiện bổ sung cho một sự kiện, phải thỏa thì transition mới xảy ra; ghi trong ngoặc vuông theo cú pháp 'event [guard condition] / action'.", "kw": false },
+    { "en": "all states coverage", "vi": "độ phủ tất cả trạng thái", "def": "Tiêu chí độ phủ state transition với coverage item là các trạng thái; yếu nhất trong ba tiêu chí của syllabus.", "kw": false },
+    { "en": "valid transitions coverage", "vi": "độ phủ các chuyển tiếp hợp lệ (0-switch)", "def": "Tiêu chí độ phủ với coverage item là từng transition hợp lệ; phổ biến nhất và đảm bảo 100% all states coverage.", "kw": false },
+    { "en": "all transitions coverage", "vi": "độ phủ tất cả chuyển tiếp", "def": "Tiêu chí độ phủ với coverage item là mọi transition trong state table (hợp lệ và không hợp lệ); là yêu cầu tối thiểu cho phần mềm mission/safety-critical.", "kw": false },
+    { "en": "branch", "vi": "nhánh", "def": "Sự chuyển điều khiển giữa hai nút trong control flow graph; có thể vô điều kiện hoặc có điều kiện (kết quả của một quyết định).", "kw": false },
+    { "en": "fault attack", "vi": "tấn công lỗi", "def": "Cách hiện thực error guessing: lập danh sách error/defect/failure có thể có rồi thiết kế test để làm lộ defect hoặc gây failure.", "kw": false },
+    { "en": "user story", "vi": "câu chuyện người dùng", "def": "Mô tả một tính năng có giá trị với người dùng hoặc người mua, gồm 3 khía cạnh Card, Conversation, Confirmation; định dạng 'As a..., I want..., so that...'.", "kw": false }
+  ]
+}
