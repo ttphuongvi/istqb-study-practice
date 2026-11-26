@@ -86,7 +86,11 @@ function fmtDate(ts) {
   const p = n => String(n).padStart(2, '0');
   return p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
 }
-function pctColor(p) { return p >= 80 ? 'var(--ok)' : p >= 65 ? '#3b6ef5' : p >= 50 ? 'var(--warn)' : 'var(--bad)'; }
+function pctColor(p) { return p >= 80 ? 'var(--ok)' : p >= 65 ? 'var(--brand)' : p >= 50 ? 'var(--warn)' : 'var(--bad)'; }
+/* Màu viết cứng trong HTML kết quả (kể cả bản đã lưu từ phiên bản cũ) -> biến CSS để hợp giao diện tối */
+const COLOR_VARS = { '#e6f7f0': 'var(--ok-bg)', '#b9e6d4': 'var(--ok-line)', '#fff7e8': 'var(--warn-bg)', '#f5e2bd': 'var(--warn-line)',
+  '#fdeceb': 'var(--bad-bg)', '#eef2fd': 'var(--brand-soft)', '#cdd9f8': 'var(--brand-line)', '#b3312f': 'var(--bad)', '#44506b': 'var(--ink2)' };
+function themeColors(html) { return String(html).replace(/#[0-9a-f]{6}\b/gi, h => COLOR_VARS[h.toLowerCase()] || h); }
 
 /* ================== LƯU TRỮ (localStorage) ================== */
 const STORE_KEY = 'istqb-ctfl-study-v2';
@@ -803,7 +807,7 @@ function submitExam(auto) {
     + '<div style="font-size:14px;color:#44506b;line-height:1.6">' + m.body + '</div>'
     + '</div>'
     + '<div class="rchap"><h4>📚 Kết quả theo chương syllabus</h4>' + chapterRowsHTML(br) + '</div>';
-  st.resultHTML = html;
+  st.resultHTML = themeColors(html);
   st.resultPass = pass;
   save(true);
   buildTabs();
@@ -817,7 +821,7 @@ function restoreResult() {
   if (st && st.resultHTML) {
     r.className = 'show';
     r.style.borderColor = st.resultPass ? 'var(--ok)' : 'var(--bad)';
-    r.innerHTML = st.resultHTML;
+    r.innerHTML = themeColors(st.resultHTML);
   } else { r.className = ''; r.innerHTML = ''; }
 }
 $('btnSubmit').onclick = () => {
@@ -1047,6 +1051,35 @@ function renderStats() {
     save(true); mount();
   };
 }
+
+/* ================== GIAO DIỆN SÁNG / TỐI ================== */
+const THEMES = [
+  { id: 'auto',  icon: '🌓', label: 'Theo hệ thống' },
+  { id: 'light', icon: '☀️', label: 'Sáng' },
+  { id: 'dark',  icon: '🌙', label: 'Tối' }
+];
+const darkMQ = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+let themePref = 'auto';
+try { themePref = localStorage.getItem('istqb-theme') || 'auto'; } catch (e) { /* ignore */ }
+function applyTheme() {
+  const dark = themePref === 'dark' || (themePref === 'auto' && darkMQ && darkMQ.matches);
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  const t = THEMES.find(x => x.id === themePref) || THEMES[0];
+  const b = $('btnTheme');
+  b.innerHTML = t.icon + '<span>' + t.label + '</span>';
+  b.title = 'Giao diện: ' + t.label + ' — bấm để đổi';
+}
+$('btnTheme').onclick = () => {
+  const i = THEMES.findIndex(x => x.id === themePref);
+  themePref = THEMES[(i + 1) % THEMES.length].id;
+  try { localStorage.setItem('istqb-theme', themePref); } catch (e) { /* ignore */ }
+  applyTheme();
+};
+if (darkMQ) {
+  const onChange = () => { if (themePref === 'auto') applyTheme(); };
+  if (darkMQ.addEventListener) darkMQ.addEventListener('change', onChange); else if (darkMQ.addListener) darkMQ.addListener(onChange);
+}
+applyTheme();
 
 /* ================== KHỞI ĐỘNG ================== */
 if (cur.kind === 'exam') filter = { from: 0, to: cur.qs.length - 1 };

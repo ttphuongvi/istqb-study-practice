@@ -6,12 +6,23 @@
 <title>Ôn luyện ISTQB CTFL v4.0</title>
 <meta name="description" content="Ôn luyện ISTQB CTFL v4.0 — Sample Exam A, B, C, D có dịch tiếng Việt, giải thích, sổ câu sai và ôn theo chương.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+<meta name="color-scheme" content="light dark">
+<script>
+/* Áp giao diện Sáng/Tối trước khi vẽ trang để không bị nháy màu */
+(function () {
+  var pref = 'auto';
+  try { pref = localStorage.getItem('istqb-theme') || 'auto'; } catch (e) {}
+  var dark = pref === 'dark' || (pref === 'auto' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+})();
+</script>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="wrap">
 
   <header class="top">
+    <button class="themebtn" id="btnTheme" title="Đổi giao diện Sáng / Tối">🌓</button>
     <h1 id="hTitle">🧪 Ôn luyện ISTQB CTFL v4.0</h1>
     <p id="hSub">Bấm 🔊 để nghe phát âm English (US) · Chọn đáp án để xem bản dịch &amp; giải thích</p>
   </header>
